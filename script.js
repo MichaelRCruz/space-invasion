@@ -4,7 +4,7 @@ $(document).ready(function() {
   $(document).keydown(function(e) {
       if (e.keyCode === 37 && $value !== 15) {
         $('#shooter').css('left', '' + $value - 15 + 'px');
-        $value = $value - 15;
+        $value -= 15;
         $location = $('#shooter').offset();
       } else if (e.keyCode === 39 && $value < 1230) {
           $('#shooter').css('left', '' + ($value + 15) + 'px');
@@ -20,8 +20,8 @@ $(document).ready(function() {
   })
 });
 
-var ctx = canvas.getContext('2d');
 var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext('2d');
 var raf;
 
 function alien() {
@@ -40,11 +40,12 @@ if (canvas.getContext) {
       ctx.fill();
     }
   }
+  draw();
 
   function draw() {
     ctx.clearRect(0,0, canvas.width, canvas.height);
-    ball.draw();
-    ball.x += 5
+    alienOne.draw();
+    alienOne.x += 1
     raf = window.requestAnimationFrame(draw);
   }
 alienOne.draw();
