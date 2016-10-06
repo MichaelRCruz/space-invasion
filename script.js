@@ -31,7 +31,7 @@ if (canvas.getContext) {
   var alienOne = {
     x: 100,
     y: 100,
-    color: 'red',
+    color: 'rgb(192, 192, 192)',
     draw: function() {
       ctx.beginPath();
       ctx.rect(this.x, this.y, 50, 50);
@@ -48,6 +48,7 @@ if (canvas.getContext) {
     alienOne.x += 1
     raf = window.requestAnimationFrame(draw);
   }
+
 alienOne.draw();
 
 } else {
