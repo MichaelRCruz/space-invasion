@@ -33,51 +33,52 @@ if (canvas.getContext) {
 // constructor function
 function Spaceships(x) {
   this.x = x
-  this.y = 100
+  this.y = 75
   this.color = 'rgb(192, 192, 192)'
   this.draw = function() {
     ctx.beginPath();
-    ctx.rect(this.x, this.y, 100, 100);
+    ctx.rect(this.x, this.y, 50, 50);
     ctx.closePath();
     ctx.fillStyle = this.color;
     ctx.fill();
   };
 };
-var alienOne = new Spaceships(100);
-var alienTwo = new Spaceships(500);
+var alienOne = new Spaceships(50);
+var alienTwo = new Spaceships(200);
 
 alienOne.draw();
 alienTwo.draw();
 
 setInterval(function redraw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   // left square
-  if (alienOne.x == 200) {
+  if (alienOne.x == 150) {
     switchDirection[0] = false;
-  } else if (alienOne.x == 100) {
+  } else if (alienOne.x == 50) {
     switchDirection[0] = true;
   }
       if (switchDirection[0] == true) {
-        ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienOne.draw();
         alienOne.x += 10;
       } else if (switchDirection[0] == false) {
-        ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienOne.draw();
         alienOne.x -= 10;
       }
 
   // right square
-  if (alienTwo.x == 600) {
+  if (alienTwo.x == 300) {
     switchDirection[1] = false;
-  } else if (alienTwo.x == 500) {
+  } else if (alienTwo.x == 200) {
     switchDirection[1] = true;
   }
       if (switchDirection[1] == true) {
-        ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienTwo.draw();
         alienTwo.x += 10;
       } else if (switchDirection[1] == false) {
-        ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienTwo.draw();
         alienTwo.x -= 10;
       }
