@@ -23,6 +23,7 @@ $(document).ready(function() {
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 var raf;
+// var x_cord = 100;
 
 function alien() {
 
@@ -34,22 +35,23 @@ if (canvas.getContext) {
     color: 'rgb(192, 192, 192)',
     draw: function() {
       ctx.beginPath();
-      ctx.rect(this.x, this.y, 50, 50);
+      ctx.rect(this.x, this.y, 100, 100);
       ctx.closePath();
       ctx.fillStyle = this.color;
       ctx.fill();
     }
   }
-  draw();
+  alienOne.draw()
 
-  function draw() {
+setInterval(function redraw() {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     alienOne.draw();
-    alienOne.x += 1
-    // raf = window.requestAnimationFrame(draw);
-  }
+    alienOne.x += 10;
 
-alienOne.draw();
+}, 250);
+
+
+
 
 } else {
   alert('you need a better browser to play this game')
