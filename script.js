@@ -46,7 +46,7 @@ if (canvas.getContext) {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     alienOne.draw();
     alienOne.x += 1
-    raf = window.requestAnimationFrame(draw);
+    // raf = window.requestAnimationFrame(draw);
   }
 
 alienOne.draw();
