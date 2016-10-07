@@ -23,31 +23,42 @@ $(document).ready(function() {
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 var raf;
+var switchDirection = [true];
 // var x_cord = 100;
 
 function alien() {
 
 if (canvas.getContext) {
 
-  var alienOne = {
-    x: 100,
-    y: 100,
-    color: 'rgb(192, 192, 192)',
-    draw: function() {
-      ctx.beginPath();
-      ctx.rect(this.x, this.y, 100, 100);
-      ctx.closePath();
-      ctx.fillStyle = this.color;
-      ctx.fill();
-    }
+var alienOne = {
+  x: 100,
+  y: 100,
+  color: 'rgb(192, 192, 192)',
+  draw: function() {
+    ctx.beginPath();
+    ctx.rect(this.x, this.y, 100, 100);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
   }
-  alienOne.draw()
+}
+alienOne.draw()
 
 setInterval(function redraw() {
+  if (alienOne.x == 200) {
+    switchDirection[0] = false;
+  } else if (alienOne.x == 100) {
+    switchDirection[0] = true;
+  }
+  if (switchDirection[0] == true) {
     ctx.clearRect(0,0, canvas.width, canvas.height);
     alienOne.draw();
     alienOne.x += 10;
-
+  } else if (switchDirection[0] == false) {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    alienOne.draw();
+    alienOne.x -= 10;
+  }
 }, 250);
 
 
