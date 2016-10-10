@@ -45,23 +45,16 @@ $(document).ready(function() {
           laserMove.css({top: $location.top, left: $location.left + 18})
           laserMove.animate({top: '-8px'}, "fast");
       }
-      if ($location.left < 700) {
-        console.log('hi');
-      } else {
-        console.log('dude');
-      };
   })
 });
-
-
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 var raf;
 var switchDirection = [
   true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true
-];
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true];
 
 function alien() {
 if (canvas.getContext) {
@@ -74,13 +67,21 @@ var alienFive = new Spaceships(650, 75, 'rgb(192, 192, 192)', 50, 50);
 var alienSix = new Spaceships(800, 75, 'rgb(192, 192, 192)', 50, 50);
 var alienSeven = new Spaceships(950, 75, 'rgb(192, 192, 192)', 50, 50);
 
-var alien1 = new Spaceships(100, 175, 'rgb(225, 228, 181)', 50, 50);
-// var alien2 = new Spaceships(200, 75, 'rgb(192, 192, 192)', 50, 50);
-// var alien3 = new Spaceships(350, 75, 'rgb(192, 192, 192)', 50, 50);
-// var alien4 = new Spaceships(500, 75, 'rgb(192, 192, 192)', 50, 50);
-// var alien5 = new Spaceships(650, 75, 'rgb(192, 192, 192)', 50, 50);
-// var alien6 = new Spaceships(800, 75, 'rgb(192, 192, 192)', 50, 50);
-// var alien7 = new Spaceships(950, 75, 'rgb(192, 192, 192)', 50, 50);
+var alien1 = new Spaceships(100, 175, 'color', 50, 50);
+var alien2 = new Spaceships(250, 175, 'color', 50, 50);
+var alien3 = new Spaceships(400, 175, 'color', 50, 50);
+var alien4 = new Spaceships(550, 175, 'color', 50, 50);
+var alien5 = new Spaceships(700, 175, 'color', 50, 50);
+var alien6 = new Spaceships(850, 175, 'color', 50, 50);
+var alien7 = new Spaceships(1000, 175, 'color', 50, 50);
+
+var alienI = new Spaceships(50, 275, 'color', 50, 50);
+var alienII = new Spaceships(200, 275, 'color', 50, 50);
+var alienIII = new Spaceships(350, 275, 'color', 50, 50);
+var alienIV = new Spaceships(500, 275, 'color', 50, 50);
+var alienV = new Spaceships(650, 275, 'color', 50, 50);
+var alienVI = new Spaceships(800, 275, 'color', 50, 50);
+var alienVII = new Spaceships(950, 275, 'color', 50, 50);
 
 var fighter = new Spaceships(600, 550, 'red', 50, 30);
 
@@ -93,16 +94,33 @@ alienSix.draw();
 alienSeven.draw();
 
 alien1.draw();
-// alien2.draw();
-// alien3.draw();
-// alien4.draw();
-// alien5.draw();
-// alien6.draw();
-// alien7.draw();
+alien2.draw();
+alien3.draw();
+alien4.draw();
+alien5.draw();
+alien6.draw();
+alien7.draw();
 
-// fighter.draw();
+alienI.draw();
+alienII.draw();
+alienIII.draw();
+alienIV.draw();
+alienV.draw();
+alienVI.draw();
+alienVII.draw();
+
 drawFighter();
 
+function fighterMove() {
+  ctx.beginPath();
+  var image = new Image()
+  image.src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/Space_Invaders_Second_Row.PNG"
+  ctx.drawImage(image, 600, 550, 50, 30);
+  ctx.closePath();
+  ctx.fill();
+};
+
+// alien animation
 setInterval(function redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawFighter();
@@ -233,36 +251,209 @@ setInterval(function redraw() {
         alien1.x -= 13;
       }
 
+  if (alien2.x >= 350) {
+    switchDirection[8] = false;
+  } else if (alien2.x <= 250) {
+    switchDirection[8] = true;
+  }
+      if (switchDirection[8] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien2.draw();
+        alien2.x += 13;
+      } else if (switchDirection[8] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien2.draw();
+        alien2.x -= 13;
+      }
+
+  if (alien3.x >= 500) {
+    switchDirection[9] = false;
+  } else if (alien3.x <= 400) {
+    switchDirection[9] = true;
+  }
+      if (switchDirection[9] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien3.draw();
+        alien3.x += 13;
+      } else if (switchDirection[9] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien3.draw();
+        alien3.x -= 13;
+      }
+
+  if (alien4.x >= 650) {
+    switchDirection[10] = false;
+  } else if (alien4.x <= 550) {
+    switchDirection[10] = true;
+  }
+      if (switchDirection[10] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien4.draw();
+        alien4.x += 13;
+      } else if (switchDirection[10] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien4.draw();
+        alien4.x -= 13;
+      }
+
+  if (alien5.x >= 800) {
+    switchDirection[11] = false;
+  } else if (alien5.x <= 700) {
+    switchDirection[11] = true;
+  }
+      if (switchDirection[11] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien5.draw();
+        alien5.x += 13;
+      } else if (switchDirection[11] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien5.draw();
+        alien5.x -= 13;
+      }
+
+  if (alien6.x >= 950) {
+    switchDirection[12] = false;
+  } else if (alien6.x <= 850) {
+    switchDirection[12] = true;
+  }
+      if (switchDirection[12] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien6.draw();
+        alien6.x += 13;
+      } else if (switchDirection[12] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien6.draw();
+        alien6.x -= 13;
+      }
+
+  if (alien7.x >= 1100) {
+    switchDirection[13] = false;
+  } else if (alien7.x <= 1000) {
+    switchDirection[13] = true;
+  }
+      if (switchDirection[13] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien7.draw();
+        alien7.x += 13;
+      } else if (switchDirection[13] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alien7.draw();
+        alien7.x -= 13;
+      }
+
+  if (alienI.x >= 150) {
+    switchDirection[14] = false;
+  } else if (alienI.x <= 50) {
+    switchDirection[14] = true;
+  }
+      if (switchDirection[14] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienI.draw();
+        alienI.x += 8;
+      } else if (switchDirection[14] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienI.draw();
+        alienI.x -= 8;
+      }
+
+  if (alienII.x >= 300) {
+    switchDirection[15] = false;
+  } else if (alienII.x <= 200) {
+    switchDirection[15] = true;
+  }
+      if (switchDirection[15] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienII.draw();
+        alienII.x += 8;
+      } else if (switchDirection[15] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienII.draw();
+        alienII.x -= 8;
+      }
+
+  if (alienIII.x >= 450) {
+    switchDirection[16] = false;
+  } else if (alienIII.x <= 350) {
+    switchDirection[16] = true;
+  }
+      if (switchDirection[16] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienIII.draw();
+        alienIII.x += 8;
+      } else if (switchDirection[16] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienIII.draw();
+        alienIII.x -= 8;
+      }
+
+  if (alienIV.x >= 600) {
+    switchDirection[17] = false;
+  } else if (alienIV.x <= 500) {
+    switchDirection[17] = true;
+  }
+      if (switchDirection[17] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienIV.draw();
+        alienIV.x += 8;
+      } else if (switchDirection[17] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienIV.draw();
+        alienIV.x -= 8;
+      }
+
+  if (alienV.x >= 750) {
+    switchDirection[18] = false;
+  } else if (alienV.x <= 650) {
+    switchDirection[18] = true;
+  }
+      if (switchDirection[18] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienV.draw();
+        alienV.x += 8;
+      } else if (switchDirection[18] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienV.draw();
+        alienV.x -= 8;
+      }
+
+  if (alienVI.x >= 900) {
+    switchDirection[19] = false;
+  } else if (alienVI.x <= 800) {
+    switchDirection[19] = true;
+  }
+      if (switchDirection[19] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienVI.draw();
+        alienVI.x += 8;
+      } else if (switchDirection[19] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienVI.draw();
+        alienVI.x -= 8;
+      }
+
+  if (alienVII.x >= 1050) {
+    switchDirection[20] = false;
+  } else if (alienVII.x <= 950) {
+    switchDirection[20] = true;
+  }
+      if (switchDirection[20] == true) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienVII.draw();
+        alienVII.x += 8;
+      } else if (switchDirection[20] == false) {
+        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+        alienVII.draw();
+        alienVII.x -= 8;
+      }
+
 }, 250);
-
-// setInterval(function redraw() {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//     fighter.draw();
+// setInterval(fighterMove, 10)
 //
-//   // 1st square
-//   if (alien1.x == 200) {
-//     switchDirection[7] = false;
-//   } else if (alien1.x == 100) {
-//     switchDirection[7] = true;
-//   }
-//       if (switchDirection[7] == true) {
-//         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
-//         alien1.draw();
-//         alien1.x += 10;
-//       } else if (switchDirection[7] == false) {
-//         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
-//         alien1.draw();
-//         alien1.x -= 10;
-//       }
-// }, 250);
-
-
-
-if ($location.left < 700) {
-  console.log('hi');
-} else {
-  console.log('dude');
-};
+// if ($location.left < 700) {
+//   console.log('hi');
+// } else {
+//   console.log('dude');
+// };
 
 
 } else {
