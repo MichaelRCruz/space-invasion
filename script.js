@@ -19,31 +19,44 @@ function Spaceships(x, y, color, width, height) {
   };
 };
 
-function drawFighter() {
-  ctx.beginPath();
-  var image = new Image()
-  image.src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/Space_Invaders_Second_Row.PNG"
-  ctx.drawImage(image, 600, 550, 50, 30);
-  ctx.closePath();
-  ctx.fill();
-}
-
+// $(document).ready(function() {
+//   $(document).keydown(function(e) {
+//       if (e.keyCode === 37 && $value !== 15) {
+//         $('#shooter').css('left', '' + $value - 15 + 'px');
+//         $value -= 15;
+//         $location = $('#shooter').offset();
+//       } else if (e.keyCode === 39 && $value < 1230) {
+//           $('#shooter').css('left', '' + ($value + 15) + 'px');
+//           $value = $value + 15;
+//           $location = $('#shooter').offset();
+//       } else if (e.keyCode === 38) {
+//           var laserGun = $("<div id='laser'></div>")
+//           $('body').append(laserGun);
+//           var laserMove = $('#laser');
+//           laserMove.css({top: $location.top, left: $location.left + 18})
+//           laserMove.animate({top: '-8px'}, "fast");
+//       }
+//   })
+// });
+var leftpressed = false;
+var rightpressed = false;
 $(document).ready(function() {
   $(document).keydown(function(e) {
-      if (e.keyCode === 37 && $value !== 15) {
-        $('#shooter').css('left', '' + $value - 15 + 'px');
-        $value -= 15;
-        $location = $('#shooter').offset();
-      } else if (e.keyCode === 39 && $value < 1230) {
-          $('#shooter').css('left', '' + ($value + 15) + 'px');
-          $value = $value + 15;
-          $location = $('#shooter').offset();
-      } else if (e.keyCode === 38) {
-          var laserGun = $("<div id='laser'></div>")
-          $('body').append(laserGun);
-          var laserMove = $('#laser');
-          laserMove.css({top: $location.top, left: $location.left + 18})
-          laserMove.animate({top: '-8px'}, "fast");
+      if (e.keyCode === 37) {
+        console.log('left')
+        leftpressed = true;
+      } else if (e.keyCode === 39) {
+        console.log('right')
+          rightpressed = true;
+      }
+  })
+  $(document).keyup(function(e) {
+      if (e.keyCode === 37) {
+        console.log('no more left')
+        leftpressed = false;
+      } else if (e.keyCode === 39) {
+        console.log('no more right')
+          rightpressed = false;
       }
   })
 });
@@ -83,7 +96,7 @@ var alienV = new Spaceships(650, 275, 'color', 50, 50);
 var alienVI = new Spaceships(800, 275, 'color', 50, 50);
 var alienVII = new Spaceships(950, 275, 'color', 50, 50);
 
-var fighter = new Spaceships(600, 550, 'red', 50, 30);
+// var fighter = new Spaceships(600, 550, 'red', 50, 30);
 
 alienOne.draw();
 alienTwo.draw();
@@ -109,21 +122,32 @@ alienV.draw();
 alienVI.draw();
 alienVII.draw();
 
-drawFighter();
+
+var x_fighter = 600;
+var y_fighter = 550;
+// var dx = 2;
+// var dy = 2;
 
 function fighterMove() {
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   var image = new Image()
   image.src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/Space_Invaders_Second_Row.PNG"
-  ctx.drawImage(image, 600, 550, 50, 30);
+  ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
   ctx.closePath();
   ctx.fill();
+  // x_fighter = increment;
 };
 
 // alien animation
 setInterval(function redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawFighter();
+    fighterMove();
+    if (rightpressed) {
+      x_fighter += 5;
+    } else if (leftpressed) {
+      x_fighter -= 5
+    }
 
 
   // first square
@@ -447,13 +471,6 @@ setInterval(function redraw() {
       }
 
 }, 250);
-// setInterval(fighterMove, 10)
-//
-// if ($location.left < 700) {
-//   console.log('hi');
-// } else {
-//   console.log('dude');
-// };
 
 
 } else {
