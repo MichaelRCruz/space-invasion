@@ -19,25 +19,33 @@ function Spaceships(x, y, color, width, height) {
   };
 };
 
-// $(document).ready(function() {
-//   $(document).keydown(function(e) {
-//       if (e.keyCode === 37 && $value !== 15) {
-//         $('#shooter').css('left', '' + $value - 15 + 'px');
-//         $value -= 15;
-//         $location = $('#shooter').offset();
-//       } else if (e.keyCode === 39 && $value < 1230) {
-//           $('#shooter').css('left', '' + ($value + 15) + 'px');
-//           $value = $value + 15;
-//           $location = $('#shooter').offset();
-//       } else if (e.keyCode === 38) {
-//           var laserGun = $("<div id='laser'></div>")
-//           $('body').append(laserGun);
-//           var laserMove = $('#laser');
-//           laserMove.css({top: $location.top, left: $location.left + 18})
-//           laserMove.animate({top: '-8px'}, "fast");
-//       }
-//   })
-// });
+$(document).ready(function() {
+  $(document).keydown(function(e) {
+      if (e.keyCode === 37 && $value !== 15) {
+        $('#shooter').css('left', '' + $value - 15 + 'px');
+        $value -= 15;
+        $location = $('#shooter').offset();
+      } else if (e.keyCode === 39 && $value < 1230) {
+          $('#shooter').css('left', '' + ($value + 15) + 'px');
+          $value = $value + 15;
+          $location = $('#shooter').offset();
+      } else if (e.keyCode === 38) {
+          var laserGun = $("<div id='laser'></div>")
+          $('body').append(laserGun);
+          var laserMove = $('#laser');
+          laserLocation = laserMove.offset();
+          laserMove.css({top: $location.top, left: $location.left + 18})
+          laserMove.animate({top: '-8px'}, "fast");
+          console.log(laserLocation.top);
+      }
+      if ($location.left < 700) {
+        console.log('hi');
+      } else {
+        console.log('dude');
+      };
+  })
+});
+
 var leftpressed = false;
 var rightpressed = false;
 $(document).ready(function() {
@@ -71,6 +79,8 @@ var switchDirection = [
 
 function alien() {
 if (canvas.getContext) {
+
+
 
 var alienOne = new Spaceships(50, 75, 'rgb(192, 192, 192)', 50, 50);
 var alienTwo = new Spaceships(200, 75, 'rgb(192, 192, 192)', 50, 50);
