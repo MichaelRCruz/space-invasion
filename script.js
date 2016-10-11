@@ -19,6 +19,24 @@ function Spaceships(x, y, color, width, height) {
   };
 };
 
+function fighterMove() {
+  ctx.beginPath();
+  var image = new Image()
+  image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122"
+  ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
+  ctx.closePath();
+  ctx.fill();
+};
+
+var laser_y = 530;
+function laserBullet() {
+  ctx.beginPath();
+  ctx.fillStyle = "red";
+  ctx.fillRect(x_fighter + 23.5, laser_y, 2, 20);
+  ctx.closePath();
+  laser_y -= 5;
+}
+
 var leftpressed = false;
 var rightpressed = false;
 $(document).ready(function() {
@@ -38,6 +56,9 @@ $(document).ready(function() {
   })
 });
 
+var x_fighter = 600;
+var y_fighter = 550;
+var laserWidth = 2;
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 var raf;
@@ -73,8 +94,6 @@ var alienV = new Spaceships(650, 275, 'color', 50, 50);
 var alienVI = new Spaceships(800, 275, 'color', 50, 50);
 var alienVII = new Spaceships(950, 275, 'color', 50, 50);
 
-// var fighter = new Spaceships(600, 550, 'red', 50, 30);
-
 alienOne.draw();
 alienTwo.draw();
 alienThree.draw();
@@ -99,28 +118,26 @@ alienV.draw();
 alienVI.draw();
 alienVII.draw();
 
-
-var x_fighter = 600;
-var y_fighter = 550;
-
-function fighterMove() {
-  ctx.beginPath();
-  var image = new Image()
-  image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122"
-  ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
-  ctx.closePath();
-  ctx.fill();
-};
+// function fighterMove() {
+//   ctx.beginPath();
+//   var image = new Image()
+//   image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122"
+//   ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
+//   ctx.closePath();
+//   ctx.fill();
+// };
 
 // alien animation
 setInterval(function redraw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    fighterMove();
-    if (rightpressed && x_fighter < 1200) {
-      x_fighter += 10;
-    } else if (leftpressed && x_fighter > 10) {
-      x_fighter -= 10
-    }
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  fighterMove();
+  if (rightpressed && x_fighter < 1200) {
+    x_fighter += 10;
+  } else if (leftpressed && x_fighter > 10) {
+    x_fighter -= 10
+  }
+
+laserBullet();
 
 
   // first square
