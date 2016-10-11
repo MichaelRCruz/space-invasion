@@ -24,19 +24,15 @@ var rightpressed = false;
 $(document).ready(function() {
   $(document).keydown(function(e) {
       if (e.keyCode === 37) {
-        console.log('left')
         leftpressed = true;
       } else if (e.keyCode === 39) {
-        console.log('right')
           rightpressed = true;
       }
   })
   $(document).keyup(function(e) {
       if (e.keyCode === 37) {
-        console.log('no more left')
         leftpressed = false;
       } else if (e.keyCode === 39) {
-        console.log('no more right')
           rightpressed = false;
       }
   })
@@ -106,27 +102,23 @@ alienVII.draw();
 
 var x_fighter = 600;
 var y_fighter = 550;
-// var dx = 2;
-// var dy = 2;
 
 function fighterMove() {
-  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   var image = new Image()
-  image.src = "https://upload.wikimedia.org/wikipedia/commons/f/f3/Space_Invaders_Second_Row.PNG"
+  image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122"
   ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
   ctx.closePath();
   ctx.fill();
-  // x_fighter = increment;
 };
 
 // alien animation
 setInterval(function redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     fighterMove();
-    if (rightpressed) {
+    if (rightpressed && x_fighter < 1200) {
       x_fighter += 10;
-    } else if (leftpressed) {
+    } else if (leftpressed && x_fighter > 10) {
       x_fighter -= 10
     }
 
