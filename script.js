@@ -39,6 +39,7 @@ function LaserBullet(current_x) {
     ctx.fillRect(this.x + 23.5, this.y, 2, 10);
     ctx.closePath();
     this.y -= 5;
+    console.log(this.y);
     }
 }
 
@@ -71,12 +72,12 @@ var laserWidth = 2;
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 var raf;
-var switchDirection = [
-  true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true];
-
-var collision = [true];
+// var switchDirection = [
+//   true, true, true, true, true, true, true,
+//   true, true, true, true, true, true, true,
+//   true, true, true, true, true, true, true];
+//
+// var collision = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
 
 function alien() {
 if (canvas.getContext) {
@@ -105,6 +106,14 @@ var alienV = new Spaceships(650, 275, 'color', 50, 50);
 var alienVI = new Spaceships(800, 275, 'color', 50, 50);
 var alienVII = new Spaceships(950, 275, 'color', 50, 50);
 
+var aliens = [alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alienI, alienII, alienIII, alienIV, alienV, alienVI, alienVII];
+
+var switchDirection = [
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true];
+
+var collision = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
 
 // alien animation
 setInterval(function redraw() {
@@ -121,113 +130,132 @@ setInterval(function redraw() {
     bullet.draw();
   });
   // first square
-  if (alienOne.x == 150) {
-    switchDirection[0] = false;
-  } else if (alienOne.x == 50) {
-    switchDirection[0] = true;
-  }
-      if (switchDirection[0] == true && collision[0] === true) {
-        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
-        alienOne.draw();
-        alienOne.x += 1/2;
-      } else if (switchDirection[0] == false) {
-        // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
-        alienOne.draw();
-        alienOne.x -= 1/2;
-      }
+  // if (alienOne.x == 150) {
+  //   switchDirection[0] = false;
+  // } else if (alienOne.x == 50) {
+  //   switchDirection[0] = true;
+  // }
+  //     if (switchDirection[0] == true && collision[0] === true) {
+  //       // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+  //       alienOne.draw();
+  //       alienOne.x += 1/2;
+  //     } else if (switchDirection[0] == false) {
+  //       // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
+  //       alienOne.draw();
+  //       alienOne.x -= 1/2;
+  //     }
+  //
+  // // second square
+  // if (alienTwo.x == 300) {
+  //   switchDirection[1] = false;
+  // } else if (alienTwo.x == 200) {
+  //   switchDirection[1] = true;
+  // }
+  //     if (switchDirection[1] == true) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienTwo.draw();
+  //       alienTwo.x += 1/2;
+  //     } else if (switchDirection[1] == false) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienTwo.draw();
+  //       alienTwo.x -= 1/2;
+  //     }
+  // // third square
+  // if (alienThree.x == 450) {
+  //   switchDirection[2] = false;
+  // } else if (alienThree.x == 350) {
+  //   switchDirection[2] = true;
+  // }
+  //     if (switchDirection[2] == true) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienThree.draw();
+  //       alienThree.x += 1/2;
+  //     } else if (switchDirection[2] == false) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienThree.draw();
+  //       alienThree.x -= 1/2;
+  //     }
+  // // fourth square
+  // if (alienFour.x == 600) {
+  //   switchDirection[3] = false;
+  // } else if (alienFour.x == 500) {
+  //   switchDirection[3] = true;
+  // }
+  //     if (switchDirection[3] == true) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienFour.draw();
+  //       alienFour.x += 1/2;
+  //     } else if (switchDirection[3] == false) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienFour.draw();
+  //       alienFour.x -= 1/2;
+  //     }
+  // // fifth square
+  // if (alienFive.x == 750) {
+  //   switchDirection[4] = false;
+  // } else if (alienFive.x == 650) {
+  //   switchDirection[4] = true;
+  // }
+  //     if (switchDirection[4] == true) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienFive.draw();
+  //       alienFive.x += 1/2;
+  //     } else if (switchDirection[4] == false) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienFive.draw();
+  //       alienFive.x -= 1/2;
+  //     }
+  //
+  // // Sixth square
+  // if (alienSix.x == 900) {
+  //   switchDirection[5] = false;
+  // } else if (alienSix.x == 800) {
+  //   switchDirection[5] = true;
+  // }
+  //     if (switchDirection[5] == true) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienSix.draw();
+  //       alienSix.x += 1/2;
+  //     } else if (switchDirection[5] == false) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienSix.draw();
+  //       alienSix.x -= 1/2;
+  //     }
+  //
+  // // Seventh square
+  // if (alienSeven.x == 1050) {
+  //   switchDirection[6] = false;
+  // } else if (alienSeven.x == 950) {
+  //   switchDirection[6] = true;
+  // }
+  //     if (switchDirection[6] == true) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienSeven.draw();
+  //       alienSeven.x += 1/2;
+  //     } else if (switchDirection[6] == false) {
+  //       // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
+  //       alienSeven.draw();
+  //       alienSeven.x -= 1/2;
+  //     }
 
-  // second square
-  if (alienTwo.x == 300) {
-    switchDirection[1] = false;
-  } else if (alienTwo.x == 200) {
-    switchDirection[1] = true;
-  }
-      if (switchDirection[1] == true) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienTwo.draw();
-        alienTwo.x += 1/2;
-      } else if (switchDirection[1] == false) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienTwo.draw();
-        alienTwo.x -= 1/2;
-      }
-  // third square
-  if (alienThree.x == 450) {
-    switchDirection[2] = false;
-  } else if (alienThree.x == 350) {
-    switchDirection[2] = true;
-  }
-      if (switchDirection[2] == true) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienThree.draw();
-        alienThree.x += 1/2;
-      } else if (switchDirection[2] == false) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienThree.draw();
-        alienThree.x -= 1/2;
-      }
-  // fourth square
-  if (alienFour.x == 600) {
-    switchDirection[3] = false;
-  } else if (alienFour.x == 500) {
-    switchDirection[3] = true;
-  }
-      if (switchDirection[3] == true) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienFour.draw();
-        alienFour.x += 1/2;
-      } else if (switchDirection[3] == false) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienFour.draw();
-        alienFour.x -= 1/2;
-      }
-  // fifth square
-  if (alienFive.x == 750) {
-    switchDirection[4] = false;
-  } else if (alienFive.x == 650) {
-    switchDirection[4] = true;
-  }
-      if (switchDirection[4] == true) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienFive.draw();
-        alienFive.x += 1/2;
-      } else if (switchDirection[4] == false) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienFive.draw();
-        alienFive.x -= 1/2;
-      }
-
-  // Sixth square
-  if (alienSix.x == 900) {
-    switchDirection[5] = false;
-  } else if (alienSix.x == 800) {
-    switchDirection[5] = true;
-  }
-      if (switchDirection[5] == true) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienSix.draw();
-        alienSix.x += 1/2;
-      } else if (switchDirection[5] == false) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienSix.draw();
-        alienSix.x -= 1/2;
-      }
-
-  // Seventh square
-  if (alienSeven.x == 1050) {
-    switchDirection[6] = false;
-  } else if (alienSeven.x == 950) {
-    switchDirection[6] = true;
-  }
-      if (switchDirection[6] == true) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienSeven.draw();
-        alienSeven.x += 1/2;
-      } else if (switchDirection[6] == false) {
-        // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
-        alienSeven.draw();
-        alienSeven.x -= 1/2;
-      }
+  for (var i = 0; i < 6; i++) {
+    var _y_ = 150;
+    var _x_ = 50;
+    if (aliens[i].x == _y_) {
+      switchDirection[i] = false;
+    } else if (aliens[i].x == _x_) {
+      switchDirection[i] = true;
+    }
+        if (switchDirection[i] == true && collision[i] === true) {
+          aliens[i].draw();
+          aliens[i].x += 1/2;
+        } else if (switchDirection[i] == false) {
+          aliens[i].draw();
+          aliens[i].x -= 1/2;
+        }
+    _y_ += 150;
+    _x_ += 150;
+  };
 
   // 1st square
   if (alien1.x >= 200) {
