@@ -19,25 +19,6 @@ function Spaceships(x, y, color, width, height) {
   };
 };
 
-// $(document).ready(function() {
-//   $(document).keydown(function(e) {
-//       if (e.keyCode === 37 && $value !== 15) {
-//         $('#shooter').css('left', '' + $value - 15 + 'px');
-//         $value -= 15;
-//         $location = $('#shooter').offset();
-//       } else if (e.keyCode === 39 && $value < 1230) {
-//           $('#shooter').css('left', '' + ($value + 15) + 'px');
-//           $value = $value + 15;
-//           $location = $('#shooter').offset();
-//       } else if (e.keyCode === 38) {
-//           var laserGun = $("<div id='laser'></div>")
-//           $('body').append(laserGun);
-//           var laserMove = $('#laser');
-//           laserMove.css({top: $location.top, left: $location.left + 18})
-//           laserMove.animate({top: '-8px'}, "fast");
-//       }
-//   })
-// });
 var leftpressed = false;
 var rightpressed = false;
 $(document).ready(function() {
@@ -144,9 +125,9 @@ setInterval(function redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     fighterMove();
     if (rightpressed) {
-      x_fighter += 5;
+      x_fighter += 10;
     } else if (leftpressed) {
-      x_fighter -= 5
+      x_fighter -= 10
     }
 
 
@@ -159,11 +140,11 @@ setInterval(function redraw() {
       if (switchDirection[0] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienOne.draw();
-        alienOne.x += 10;
+        alienOne.x += 1/2;
       } else if (switchDirection[0] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienOne.draw();
-        alienOne.x -= 10;
+        alienOne.x -= 1/2;
       }
 
   // second square
@@ -175,11 +156,11 @@ setInterval(function redraw() {
       if (switchDirection[1] == true) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienTwo.draw();
-        alienTwo.x += 10;
+        alienTwo.x += 1/2;
       } else if (switchDirection[1] == false) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienTwo.draw();
-        alienTwo.x -= 10;
+        alienTwo.x -= 1/2;
       }
   // third square
   if (alienThree.x == 450) {
@@ -190,11 +171,11 @@ setInterval(function redraw() {
       if (switchDirection[2] == true) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienThree.draw();
-        alienThree.x += 10;
+        alienThree.x += 1/2;
       } else if (switchDirection[2] == false) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienThree.draw();
-        alienThree.x -= 10;
+        alienThree.x -= 1/2;
       }
   // fourth square
   if (alienFour.x == 600) {
@@ -205,11 +186,11 @@ setInterval(function redraw() {
       if (switchDirection[3] == true) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienFour.draw();
-        alienFour.x += 10;
+        alienFour.x += 1/2;
       } else if (switchDirection[3] == false) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienFour.draw();
-        alienFour.x -= 10;
+        alienFour.x -= 1/2;
       }
   // fifth square
   if (alienFive.x == 750) {
@@ -220,11 +201,11 @@ setInterval(function redraw() {
       if (switchDirection[4] == true) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienFive.draw();
-        alienFive.x += 10;
+        alienFive.x += 1/2;
       } else if (switchDirection[4] == false) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienFive.draw();
-        alienFive.x -= 10;
+        alienFive.x -= 1/2;
       }
 
   // Sixth square
@@ -236,11 +217,11 @@ setInterval(function redraw() {
       if (switchDirection[5] == true) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienSix.draw();
-        alienSix.x += 10;
+        alienSix.x += 1/2;
       } else if (switchDirection[5] == false) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienSix.draw();
-        alienSix.x -= 10;
+        alienSix.x -= 1/2;
       }
 
   // Seventh square
@@ -252,11 +233,11 @@ setInterval(function redraw() {
       if (switchDirection[6] == true) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienSeven.draw();
-        alienSeven.x += 10;
+        alienSeven.x += 1/2;
       } else if (switchDirection[6] == false) {
         // ctx.clearRect(alienTwo.x, 100, canvas.width, canvas.height);
         alienSeven.draw();
-        alienSeven.x -= 10;
+        alienSeven.x -= 1/2;
       }
 
   // 1st square
@@ -268,11 +249,11 @@ setInterval(function redraw() {
       if (switchDirection[7] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien1.draw();
-        alien1.x += 13;
+        alien1.x += 3/5;
       } else if (switchDirection[7] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien1.draw();
-        alien1.x -= 13;
+        alien1.x -= 3/5;
       }
 
   if (alien2.x >= 350) {
@@ -283,11 +264,11 @@ setInterval(function redraw() {
       if (switchDirection[8] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien2.draw();
-        alien2.x += 13;
+        alien2.x += 3/5;
       } else if (switchDirection[8] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien2.draw();
-        alien2.x -= 13;
+        alien2.x -= 3/5;
       }
 
   if (alien3.x >= 500) {
@@ -298,11 +279,11 @@ setInterval(function redraw() {
       if (switchDirection[9] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien3.draw();
-        alien3.x += 13;
+        alien3.x += 3/5;
       } else if (switchDirection[9] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien3.draw();
-        alien3.x -= 13;
+        alien3.x -= 3/5;
       }
 
   if (alien4.x >= 650) {
@@ -313,11 +294,11 @@ setInterval(function redraw() {
       if (switchDirection[10] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien4.draw();
-        alien4.x += 13;
+        alien4.x += 3/5;
       } else if (switchDirection[10] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien4.draw();
-        alien4.x -= 13;
+        alien4.x -= 3/5;
       }
 
   if (alien5.x >= 800) {
@@ -328,11 +309,11 @@ setInterval(function redraw() {
       if (switchDirection[11] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien5.draw();
-        alien5.x += 13;
+        alien5.x += 3/5;
       } else if (switchDirection[11] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien5.draw();
-        alien5.x -= 13;
+        alien5.x -= 3/5;
       }
 
   if (alien6.x >= 950) {
@@ -343,11 +324,11 @@ setInterval(function redraw() {
       if (switchDirection[12] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien6.draw();
-        alien6.x += 13;
+        alien6.x += 3/5;
       } else if (switchDirection[12] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien6.draw();
-        alien6.x -= 13;
+        alien6.x -= 3/5;
       }
 
   if (alien7.x >= 1100) {
@@ -358,11 +339,11 @@ setInterval(function redraw() {
       if (switchDirection[13] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien7.draw();
-        alien7.x += 13;
+        alien7.x += 3/5;
       } else if (switchDirection[13] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alien7.draw();
-        alien7.x -= 13;
+        alien7.x -= 3/5;
       }
 
   if (alienI.x >= 150) {
@@ -373,11 +354,11 @@ setInterval(function redraw() {
       if (switchDirection[14] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienI.draw();
-        alienI.x += 8;
+        alienI.x += 7/12;
       } else if (switchDirection[14] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienI.draw();
-        alienI.x -= 8;
+        alienI.x -= 7/12;
       }
 
   if (alienII.x >= 300) {
@@ -388,11 +369,11 @@ setInterval(function redraw() {
       if (switchDirection[15] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienII.draw();
-        alienII.x += 8;
+        alienII.x += 7/12;
       } else if (switchDirection[15] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienII.draw();
-        alienII.x -= 8;
+        alienII.x -= 7/12;
       }
 
   if (alienIII.x >= 450) {
@@ -403,11 +384,11 @@ setInterval(function redraw() {
       if (switchDirection[16] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienIII.draw();
-        alienIII.x += 8;
+        alienIII.x += 7/12;
       } else if (switchDirection[16] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienIII.draw();
-        alienIII.x -= 8;
+        alienIII.x -= 7/12;
       }
 
   if (alienIV.x >= 600) {
@@ -418,11 +399,11 @@ setInterval(function redraw() {
       if (switchDirection[17] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienIV.draw();
-        alienIV.x += 8;
+        alienIV.x += 7/12;
       } else if (switchDirection[17] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienIV.draw();
-        alienIV.x -= 8;
+        alienIV.x -= 7/12;
       }
 
   if (alienV.x >= 750) {
@@ -433,11 +414,11 @@ setInterval(function redraw() {
       if (switchDirection[18] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienV.draw();
-        alienV.x += 8;
+        alienV.x += 7/12;
       } else if (switchDirection[18] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienV.draw();
-        alienV.x -= 8;
+        alienV.x -= 7/12;
       }
 
   if (alienVI.x >= 900) {
@@ -448,11 +429,11 @@ setInterval(function redraw() {
       if (switchDirection[19] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienVI.draw();
-        alienVI.x += 8;
+        alienVI.x += 7/12;
       } else if (switchDirection[19] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienVI.draw();
-        alienVI.x -= 8;
+        alienVI.x -= 7/12;
       }
 
   if (alienVII.x >= 1050) {
@@ -463,14 +444,14 @@ setInterval(function redraw() {
       if (switchDirection[20] == true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienVII.draw();
-        alienVII.x += 8;
+        alienVII.x += 7/12;
       } else if (switchDirection[20] == false) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienVII.draw();
-        alienVII.x -= 8;
+        alienVII.x -= 7/12;
       }
 
-}, 250);
+}, 10);
 
 
 } else {
