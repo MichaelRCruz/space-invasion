@@ -19,34 +19,6 @@ function Spaceships(x, y, color, width, height) {
   };
 };
 
-<<<<<<< HEAD
-$(document).ready(function() {
-  $(document).keydown(function(e) {
-      if (e.keyCode === 37 && $value !== 15) {
-        $('#shooter').css('left', '' + $value - 15 + 'px');
-        $value -= 15;
-        $location = $('#shooter').offset();
-      } else if (e.keyCode === 39 && $value < 1230) {
-          $('#shooter').css('left', '' + ($value + 15) + 'px');
-          $value = $value + 15;
-          $location = $('#shooter').offset();
-      } else if (e.keyCode === 38) {
-          var laserGun = $("<div id='laser'></div>")
-          $('body').append(laserGun);
-          var laserMove = $('#laser');
-          laserLocation = laserMove.offset();
-          laserMove.css({top: $location.top, left: $location.left + 18})
-          laserMove.animate({top: '-8px'}, "fast");
-          console.log(laserLocation.top);
-      }
-      if ($location.left < 700) {
-        console.log('hi');
-      } else {
-        console.log('dude');
-      };
-  })
-});
-=======
 function fighterMove() {
   ctx.beginPath();
   var image = new Image()
@@ -69,7 +41,6 @@ function LaserBullet(current_x) {
     this.y -= 5;
     }
 }
->>>>>>> master
 
 var leftpressed = false;
 var rightpressed = false;
