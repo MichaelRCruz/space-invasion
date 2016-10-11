@@ -2,20 +2,24 @@ $value = 300
 $location = $('#shooter').offset();
 
 // spaceship constructor function
-function Spaceships(x, y, color, width, height) {
+function Spaceships(x, y, color, width, height, src) {
   this.x = x
   this.y = y
   this.color = color
   this.width = width
   this.height = height
   var image = new Image()
-  image.src = "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png"
+  image.src = src
   this.draw = function() {
     ctx.beginPath();
     ctx.drawImage(image, this.x, this.y, this.width, this.height);
     ctx.closePath();
     ctx.fillStyle = this.color;
     ctx.fill();
+    // if (bullets.y > this.y && bullets.y < this.y + this.height
+    //     && current_x > this.x $$ current_x > this.x + this.width) {
+    //       console.log('boom');
+    //     }
   };
 };
 
@@ -34,14 +38,15 @@ function LaserBullet(current_x) {
   this.y = 530;
   this.x = current_x;
   this.draw = function () {
-    ctx.beginPath();
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.x + 23.5, this.y, 2, 10);
-    ctx.closePath();
-    this.y -= 5;
-    console.log(this.y);
+    if (this.y > 0) {
+      ctx.beginPath();
+      ctx.fillStyle = "red";
+      ctx.fillRect(this.x + 23.5, this.y, 2, 10);
+      ctx.closePath();
+      this.y -= 5;
     }
-}
+  }
+};
 
 var leftpressed = false;
 var rightpressed = false;
@@ -72,39 +77,33 @@ var laserWidth = 2;
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 var raf;
-// var switchDirection = [
-//   true, true, true, true, true, true, true,
-//   true, true, true, true, true, true, true,
-//   true, true, true, true, true, true, true];
-//
-// var collision = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
 
 function alien() {
 if (canvas.getContext) {
 
-var alienOne = new Spaceships(50, 75, 'rgb(192, 192, 192)', 50, 50);
-var alienTwo = new Spaceships(200, 75, 'rgb(192, 192, 192)', 50, 50);
-var alienThree = new Spaceships(350, 75, 'rgb(192, 192, 192)', 50, 50);
-var alienFour = new Spaceships(500, 75, 'rgb(192, 192, 192)', 50, 50);
-var alienFive = new Spaceships(650, 75, 'rgb(192, 192, 192)', 50, 50);
-var alienSix = new Spaceships(800, 75, 'rgb(192, 192, 192)', 50, 50);
-var alienSeven = new Spaceships(950, 75, 'rgb(192, 192, 192)', 50, 50);
+var alienOne = new Spaceships(50, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
+var alienTwo = new Spaceships(200, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
+var alienThree = new Spaceships(350, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
+var alienFour = new Spaceships(500, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
+var alienFive = new Spaceships(650, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
+var alienSix = new Spaceships(800, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
+var alienSeven = new Spaceships(950, 75, 'rgb(192, 192, 192)', 50, 50, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
 
-var alien1 = new Spaceships(100, 175, 'color', 50, 50);
-var alien2 = new Spaceships(250, 175, 'color', 50, 50);
-var alien3 = new Spaceships(400, 175, 'color', 50, 50);
-var alien4 = new Spaceships(550, 175, 'color', 50, 50);
-var alien5 = new Spaceships(700, 175, 'color', 50, 50);
-var alien6 = new Spaceships(850, 175, 'color', 50, 50);
-var alien7 = new Spaceships(1000, 175, 'color', 50, 50);
+var alien1 = new Spaceships(100, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
+var alien2 = new Spaceships(250, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
+var alien3 = new Spaceships(400, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
+var alien4 = new Spaceships(550, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
+var alien5 = new Spaceships(700, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
+var alien6 = new Spaceships(850, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
+var alien7 = new Spaceships(1000, 175, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/xSpace-ufo.sh-180x180.png.pagespeed.ic.Xok8moT7GA.png");
 
-var alienI = new Spaceships(50, 275, 'color', 50, 50);
-var alienII = new Spaceships(200, 275, 'color', 50, 50);
-var alienIII = new Spaceships(350, 275, 'color', 50, 50);
-var alienIV = new Spaceships(500, 275, 'color', 50, 50);
-var alienV = new Spaceships(650, 275, 'color', 50, 50);
-var alienVI = new Spaceships(800, 275, 'color', 50, 50);
-var alienVII = new Spaceships(950, 275, 'color', 50, 50);
+var alienI = new Spaceships(50, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
+var alienII = new Spaceships(200, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
+var alienIII = new Spaceships(350, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
+var alienIV = new Spaceships(500, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
+var alienV = new Spaceships(650, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
+var alienVI = new Spaceships(800, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
+var alienVII = new Spaceships(950, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
 
 var aliens = [alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alienI, alienII, alienIII, alienIV, alienV, alienVI, alienVII];
 
@@ -113,7 +112,10 @@ var switchDirection = [
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true];
 
-var collision = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+var collision = [
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true];
 
 // alien animation
 setInterval(function redraw() {
