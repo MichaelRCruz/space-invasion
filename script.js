@@ -29,12 +29,17 @@ function fighterMove() {
 };
 
 var laser_y = 530;
-function laserBullet() {
-  ctx.beginPath();
-  ctx.fillStyle = "red";
-  ctx.fillRect(x_fighter + 23.5, laser_y, 2, 20);
-  ctx.closePath();
-  laser_y -= 5;
+var bullets = [];
+function LaserBullet(current_x) {
+  this.y = 530;
+  this.x = current_x;
+  this.draw = function () {
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.x + 23.5, this.y, 2, 10);
+    ctx.closePath();
+    this.y -= 5;
+    }
 }
 
 var leftpressed = false;
@@ -45,6 +50,10 @@ $(document).ready(function() {
         leftpressed = true;
       } else if (e.keyCode === 39) {
           rightpressed = true;
+      } else if (e.keyCode === 38) {
+        console.log('sup');
+        var bullet = new LaserBullet(x_fighter);
+        bullets.push(bullet);
       }
   })
   $(document).keyup(function(e) {
@@ -66,6 +75,8 @@ var switchDirection = [
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true];
+
+var collision = [true];
 
 function alien() {
 if (canvas.getContext) {
@@ -94,59 +105,28 @@ var alienV = new Spaceships(650, 275, 'color', 50, 50);
 var alienVI = new Spaceships(800, 275, 'color', 50, 50);
 var alienVII = new Spaceships(950, 275, 'color', 50, 50);
 
-alienOne.draw();
-alienTwo.draw();
-alienThree.draw();
-alienFour.draw();
-alienFive.draw();
-alienSix.draw();
-alienSeven.draw();
-
-alien1.draw();
-alien2.draw();
-alien3.draw();
-alien4.draw();
-alien5.draw();
-alien6.draw();
-alien7.draw();
-
-alienI.draw();
-alienII.draw();
-alienIII.draw();
-alienIV.draw();
-alienV.draw();
-alienVI.draw();
-alienVII.draw();
-
-// function fighterMove() {
-//   ctx.beginPath();
-//   var image = new Image()
-//   image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122"
-//   ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
-//   ctx.closePath();
-//   ctx.fill();
-// };
 
 // alien animation
 setInterval(function redraw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   fighterMove();
+
   if (rightpressed && x_fighter < 1200) {
     x_fighter += 10;
   } else if (leftpressed && x_fighter > 10) {
     x_fighter -= 10
   }
 
-laserBullet();
-
-
+  bullets.forEach(function (bullet) {
+    bullet.draw();
+  });
   // first square
   if (alienOne.x == 150) {
     switchDirection[0] = false;
   } else if (alienOne.x == 50) {
     switchDirection[0] = true;
   }
-      if (switchDirection[0] == true) {
+      if (switchDirection[0] == true && collision[0] === true) {
         // ctx.clearRect(alienOne.x, 100, canvas.width, canvas.height);
         alienOne.draw();
         alienOne.x += 1/2;
