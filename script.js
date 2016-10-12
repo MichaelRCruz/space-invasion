@@ -68,7 +68,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height && bullets[j].x > aliens[i].x && bullets[j].x < aliens[i].x + aliens[i].width) {
+                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 15 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 20) {
                         aliens[i].alive = false;
                         bullets.splice(j, 1);
                     }
@@ -171,7 +171,7 @@ $(document).ready(function() {
             if (this.y > 0) {
                 ctx.beginPath();
                 ctx.fillStyle = "red";
-                ctx.fillRect(this.x + 23.5, this.y, 2, 10);
+                ctx.fillRect(this.x + 23.5, this.y, 3, 10);
                 ctx.closePath();
                 this.y -= 5;
             }
