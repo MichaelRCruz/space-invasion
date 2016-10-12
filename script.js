@@ -1,32 +1,25 @@
 $value = 300
 $location = $('#shooter').offset();
+var leftpressed = false;
+var rightpressed = false;
+var x_fighter = 600;
+var y_fighter = 550;
+var laserWidth = 2;
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext('2d');
+var raf;
+var laser_y = 530;
+var bullets = [];
 
-// spaceship constructor function
-// function Spaceships(x, y, color, width, height, src) {
-//   this.x = x
-//   this.y = y
-//   this.color = color
-//   this.width = width
-//   this.height = height
-//   var image = new Image()
-//   image.src = src
-//   this.draw = function() {
-//     ctx.beginPath();
-//     ctx.drawImage(image, this.x, this.y, this.width, this.height);
-//     ctx.closePath();
-//     ctx.fillStyle = this.color;
-//     ctx.fill();
-//     for (var j = 0; j < aliens.length; j++) {
-//       for (var i = 0; i < bullets.length; i++) {
-//         if (bullets[i].y < aliens[j].y && bullets[i].x > aliens[j].x && bullets[i].x < aliens[j].x + this.width) {
-//           bullets.pop();
-//
-//           console.log('boom');
-//           };
-//         }
-//     }
-//   }
-// };
+var switchDirection = [
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true];
+
+var collision = [
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true,
+  true, true, true, true, true, true, true];
 
 function fighterMove() {
   ctx.beginPath();
@@ -37,8 +30,6 @@ function fighterMove() {
   ctx.fill();
 };
 
-var laser_y = 530;
-var bullets = [];
 function LaserBullet(current_x) {
   this.y = 530;
   this.x = current_x;
@@ -50,12 +41,9 @@ function LaserBullet(current_x) {
       ctx.closePath();
       this.y -= 5;
     }
-
   }
 };
 
-var leftpressed = false;
-var rightpressed = false;
 $(document).ready(function() {
   $(document).keydown(function(e) {
       if (e.keyCode === 37) {
@@ -76,13 +64,6 @@ $(document).ready(function() {
       }
   })
 });
-
-var x_fighter = 600;
-var y_fighter = 550;
-var laserWidth = 2;
-var canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext('2d');
-var raf;
 
 function alien() {
 if (canvas.getContext) {
@@ -112,7 +93,11 @@ var alienV = new Spaceships(650, 275, 'color', 50, 50, "http://www.unixstickers.
 var alienVI = new Spaceships(800, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
 var alienVII = new Spaceships(950, 275, 'color', 50, 50, "http://www.unixstickers.com/image/cache/data/stickers/spaceinvaders/Space-small-invader.sh-600x600.png");
 
-var aliens = [alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alienI, alienII, alienIII, alienIV, alienV, alienVI, alienVII];
+var aliens = [
+  alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven,
+  alien1, alien2, alien3, alien4, alien5, alien6, alien7,
+  alienI, alienII, alienIII, alienIV, alienV, alienVI, alienVII
+];
 
 function Spaceships(x, y, color, width, height, src) {
   this.x = x
@@ -139,16 +124,6 @@ function Spaceships(x, y, color, width, height, src) {
     }
   }
 };
-
-var switchDirection = [
-  true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true];
-
-var collision = [
-  true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true,
-  true, true, true, true, true, true, true];
 
 function disappear(alien) {
   collision[alien] = false;
@@ -227,7 +202,6 @@ setInterval(function redraw() {
   };
 
 }, 10);
-
 
 } else {
   alert('you need a better browser to play this game')
