@@ -68,9 +68,8 @@ $(document).ready(function() {
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if (bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height && bullets[j].x > aliens[i].x && bullets[j].x < aliens[i].x + aliens[i].width) {
+                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height && bullets[j].x > aliens[i].x && bullets[j].x < aliens[i].x + aliens[i].width) {
                         aliens[i].alive = false;
-                        aliens[i] = new Spaceships(-50, -50, 'rgb(192, 192, 192)', "assets/space-large.png");
                         bullets.splice(j, 1);
                     }
                 }
