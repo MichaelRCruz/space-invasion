@@ -131,7 +131,7 @@ function Spaceships(x, y, color, width, height, src) {
       for (var i = 0; i < bullets.length; i++) {
         if (bullets[i].y < aliens[j].y && bullets[i].x > aliens[j].x && bullets[i].x < aliens[j].x + this.width) {
           bullets.pop();
-          collision[j] = false;
+          disappear(j);
           console.log('boom');
           };
         }
@@ -148,6 +148,10 @@ var collision = [
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true];
+
+function disappear(alien) {
+  collision[alien] = false;
+};
 
 // alien animation
 setInterval(function redraw() {
