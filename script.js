@@ -2,26 +2,31 @@ $value = 300
 $location = $('#shooter').offset();
 
 // spaceship constructor function
-function Spaceships(x, y, color, width, height, src) {
-  this.x = x
-  this.y = y
-  this.color = color
-  this.width = width
-  this.height = height
-  var image = new Image()
-  image.src = src
-  this.draw = function() {
-    ctx.beginPath();
-    ctx.drawImage(image, this.x, this.y, this.width, this.height);
-    ctx.closePath();
-    ctx.fillStyle = this.color;
-    ctx.fill();
-    // if (bullets.y > this.y && bullets.y < this.y + this.height
-    //     && current_x > this.x $$ current_x > this.x + this.width) {
-    //       console.log('boom');
-    //     }
-  };
-};
+// function Spaceships(x, y, color, width, height, src) {
+//   this.x = x
+//   this.y = y
+//   this.color = color
+//   this.width = width
+//   this.height = height
+//   var image = new Image()
+//   image.src = src
+//   this.draw = function() {
+//     ctx.beginPath();
+//     ctx.drawImage(image, this.x, this.y, this.width, this.height);
+//     ctx.closePath();
+//     ctx.fillStyle = this.color;
+//     ctx.fill();
+//     for (var j = 0; j < aliens.length; j++) {
+//       for (var i = 0; i < bullets.length; i++) {
+//         if (bullets[i].y < aliens[j].y && bullets[i].x > aliens[j].x && bullets[i].x < aliens[j].x + this.width) {
+//           bullets.pop();
+//
+//           console.log('boom');
+//           };
+//         }
+//     }
+//   }
+// };
 
 function fighterMove() {
   ctx.beginPath();
@@ -45,6 +50,7 @@ function LaserBullet(current_x) {
       ctx.closePath();
       this.y -= 5;
     }
+
   }
 };
 
@@ -108,6 +114,31 @@ var alienVII = new Spaceships(950, 275, 'color', 50, 50, "http://www.unixsticker
 
 var aliens = [alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven, alien1, alien2, alien3, alien4, alien5, alien6, alien7, alienI, alienII, alienIII, alienIV, alienV, alienVI, alienVII];
 
+function Spaceships(x, y, color, width, height, src) {
+  this.x = x
+  this.y = y
+  this.color = color
+  this.width = width
+  this.height = height
+  var image = new Image()
+  image.src = src
+  this.draw = function() {
+    ctx.beginPath();
+    ctx.drawImage(image, this.x, this.y, this.width, this.height);
+    ctx.closePath();
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    for (var j = 0; j < aliens.length; j++) {
+      for (var i = 0; i < bullets.length; i++) {
+        if (bullets[i].y < aliens[j].y && bullets[i].x > aliens[j].x && bullets[i].x < aliens[j].x + this.width) {
+          bullets.pop();
+          disappear(j);
+          console.log('boom');
+          };
+        }
+    }
+  }
+};
 
 var switchDirection = [
   true, true, true, true, true, true, true,
@@ -118,6 +149,10 @@ var collision = [
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true,
   true, true, true, true, true, true, true];
+
+function disappear(alien) {
+  collision[alien] = false;
+};
 
 // alien animation
 setInterval(function redraw() {
