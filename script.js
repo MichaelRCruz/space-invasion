@@ -9,6 +9,7 @@ $(document).ready(function() {
     var raf;
     var laser_y = 530;
     var bullets = [];
+    var alienBullets = [];
     var switchDirection = [
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true,
@@ -65,6 +66,17 @@ $(document).ready(function() {
             bullets.forEach(function(bullet) {
                 bullet.draw();
             });
+
+            alienBullets.forEach(function(bullet) {
+                bullet.draw();
+            });
+
+            aliens.forEach(function(alien) {
+                var randomNumber = Math.random();
+                if (randomNumber < .002) {
+                  alien.fire();
+                }
+            })
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
@@ -155,6 +167,11 @@ $(document).ready(function() {
             ctx.fillStyle = this.color;
             ctx.fill();
         }
+
+        this.fire = function() {
+            var bullet = new LaserBullet(this.y, this.x, 5, 10, "green", 0, 5);
+            alienBullets.push(bullet);
+        }
     };
 
     function fighterMove() {
@@ -166,7 +183,7 @@ $(document).ready(function() {
         ctx.fill();
     };
 
-    function LaserBullet(current_y, current_x, width, height, color, adjust, direction) {
+    function LaserBullet(current_y, current_x, width, height, color, adjust_x, adjust_x, direction) {
         this.y = current_y;
         this.x = current_x;
         this.width = width;
@@ -175,13 +192,11 @@ $(document).ready(function() {
         this.adjust = adjust;
         this.direction = direction;
         this.draw = function() {
-            // if (this.y > 0) {
                 ctx.beginPath();
                 ctx.fillStyle = this.color;
-                ctx.fillRect(this.x + this.adjust, this.y, this.width, this.height);
+                ctx.fillRect(this.x + this.adjust_x, this.y + this.adjust_x, this.width, this.height);
                 ctx.closePath();
                 this.y += this.direction;
-            // }
         }
     };
 
