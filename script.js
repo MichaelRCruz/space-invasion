@@ -1,8 +1,6 @@
 $(document).ready(function() {
     var leftpressed = false;
     var rightpressed = false;
-    var x_fighter = 600;
-    var y_fighter = 550;
     var laserWidth = 2;
     var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext('2d');
@@ -47,6 +45,8 @@ $(document).ready(function() {
         var alienVI = new Spaceships(800, 275, 'color', "assets/Space-medium-invader.png");
         var alienVII = new Spaceships(950, 275, 'color', "assets/Space-medium-invader.png");
 
+        var fighter = new FighterMove(600, 550, 50, 30, true);
+
         var aliens = [
             alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven,
             alien1, alien2, alien3, alien4, alien5, alien6, alien7,
@@ -55,12 +55,12 @@ $(document).ready(function() {
 
         setInterval(function redraw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            fighterMove();
+            fighter.draw();
 
-            if (rightpressed && x_fighter < 1200) {
-                x_fighter += 10;
-            } else if (leftpressed && x_fighter > 10) {
-                x_fighter -= 10
+            if (rightpressed && fighter.x < 1200) {
+                fighter.x += 10;
+            } else if (leftpressed && fighter.x > 10) {
+                fighter.x -= 10
             }
 
             bullets.forEach(function(bullet) {
@@ -88,6 +88,12 @@ $(document).ready(function() {
                     }
                 }
             };
+
+            // for (var i = 0; i < aliens.lengthl i++) {
+            //     if (alienBullets[i].x > fighter.x && alienBullets[i].x < fighter.x + fighter.width
+            //     && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height)
+            //
+            //   }
 
             var yOne = 150;
             var xOne = 50;
@@ -169,32 +175,40 @@ $(document).ready(function() {
         }
 
         this.fire = function() {
-            var bullet = new LaserBullet(this.y, this.x, 5, 10, "green", 0, 5);
+            var bullet = new LaserBullet(this.y, this.x, 5, 10, "green", 20, 20, 5);
             alienBullets.push(bullet);
         }
     };
 
-    function fighterMove() {
-        ctx.beginPath();
-        var image = new Image()
-        image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122"
-        ctx.drawImage(image, x_fighter, y_fighter, 50, 30);
-        ctx.closePath();
-        ctx.fill();
+    function FighterMove(x, y, width, height, alive) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.alive = true;
+        var image = new Image();
+        image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122";
+        this.draw = function() {
+            ctx.beginPath();
+            ctx.drawImage(image, this.x, this.y, this.width, this.height);
+            ctx.closePath();
+            ctx.fill();
+          }
     };
 
-    function LaserBullet(current_y, current_x, width, height, color, adjust_x, adjust_x, direction) {
+    function LaserBullet(current_y, current_x, width, height, color, adjust_x, adjust_y, direction) {
         this.y = current_y;
         this.x = current_x;
         this.width = width;
         this.height = height;
         this.color = color
-        this.adjust = adjust;
+        this.adjust_x = adjust_x;
+        this.adjust_y = adjust_y;
         this.direction = direction;
         this.draw = function() {
                 ctx.beginPath();
                 ctx.fillStyle = this.color;
-                ctx.fillRect(this.x + this.adjust_x, this.y + this.adjust_x, this.width, this.height);
+                ctx.fillRect(this.x + this.adjust_x, this.y + this.adjust_y, this.width, this.height);
                 ctx.closePath();
                 this.y += this.direction;
         }
@@ -206,7 +220,7 @@ $(document).ready(function() {
         } else if (e.keyCode === 39) {
             rightpressed = true;
         } else if (e.keyCode === 38) {
-            var bullet = new LaserBullet(530, x_fighter, 3, 10, "red", 23.5, -5);
+            var bullet = new LaserBullet(530, fighter.x, 3, 10, "red", 23.5, 0, -5);
             bullets.push(bullet);
             console.log(bullets);
         }
