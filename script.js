@@ -118,10 +118,10 @@ function alien() {
                 for (var j = 0; j < aliens.length; j++) {
                     for (var i = 0; i < bullets.length; i++) {
                         if (bullets[i].y < aliens[j].y && bullets[i].x > aliens[j].x && bullets[i].x < aliens[j].x + this.width) {
-                            bullets.pop();
+                            bullets.pop(bullets[i]);
                             aliens[j] = new Spaceships(0, 0, 'rgb(192, 192, 192)', 0, 0, "https://ryanmurphyblog.files.wordpress.com/2015/04/space-invader.png");
                             disappear[j];
-                            console.log('boom');
+                            console.log(bullets);
                         };
                     }
                 }
