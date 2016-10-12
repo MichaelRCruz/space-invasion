@@ -68,12 +68,14 @@ $(document).ready(function() {
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 20) {
+                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
+                        bullets.splice(j, 1);
+                    } else if (bullets[j].y < 0) {
                         bullets.splice(j, 1);
                     }
                 }
-            }
+            };
 
             var yOne = 150;
             var xOne = 50;
@@ -164,17 +166,22 @@ $(document).ready(function() {
         ctx.fill();
     };
 
-    function LaserBullet(current_y, current_x) {
+    function LaserBullet(current_y, current_x, width, height, color, adjust, direction) {
         this.y = current_y;
         this.x = current_x;
+        this.width = width;
+        this.height = height;
+        this.color = color
+        this.adjust = adjust;
+        this.direction = direction;
         this.draw = function() {
-            if (this.y > 0) {
+            // if (this.y > 0) {
                 ctx.beginPath();
-                ctx.fillStyle = "red";
-                ctx.fillRect(this.x + 23.5, this.y, 3, 10);
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x + this.adjust, this.y, this.width, this.height);
                 ctx.closePath();
-                this.y -= 5;
-            }
+                this.y += this.direction;
+            // }
         }
     };
 
@@ -184,15 +191,17 @@ $(document).ready(function() {
         } else if (e.keyCode === 39) {
             rightpressed = true;
         } else if (e.keyCode === 38) {
-            var bullet = new LaserBullet(530, x_fighter);
+            var bullet = new LaserBullet(530, x_fighter, 3, 10, "red", 23.5, -5);
             bullets.push(bullet);
+            console.log(bullets);
         }
-    })
+    });
+
     $(document).keyup(function(e) {
         if (e.keyCode === 37) {
             leftpressed = false;
         } else if (e.keyCode === 39) {
             rightpressed = false;
         }
-    })
+    });
 });
