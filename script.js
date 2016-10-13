@@ -74,9 +74,11 @@ $(document).ready(function() {
             });
 
             aliens.forEach(function(alien) {
-                var randomNumber = Math.random();
-                if (randomNumber < .001) {
-                  alien.fire();
+                if (alien.alive) {
+                    var randomNumber = Math.random();
+                    if (randomNumber < .001) {
+                      alien.fire();
+                    };
                 }
             })
 
@@ -91,14 +93,15 @@ $(document).ready(function() {
                 }
             };
 
-            // for (var i = 0; i < alienBullets.length; i++) {
-            //     if (alienBullets[i].x > fighter.x && alienBullets[i].x < fighter.x + fighter.width
-            //     && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height)
-            //         alienBullets.splice(i, 1);
-            //         fighter.alive = false;
-            //     } else if (alienBullets[i].y > 600) {
-            //         alienBullets.splice(i, 1);
-            //     };
+            for (var i = 0; i < alienBullets.length; i++) {
+                if (alienBullets[i].x > fighter.x && alienBullets[i].x < fighter.x + fighter.width
+                && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height) {
+                    alienBullets.splice(i, 1);
+                    fighter.alive = false;
+                } else if (alienBullets[i].y > 600) {
+                    alienBullets.splice(i, 1);
+                }
+            };
 
             var yOne = 150;
             var xOne = 50;
