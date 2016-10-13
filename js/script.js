@@ -1,14 +1,17 @@
 $(document).ready(function() {
+    var $restartButton = $( "<div id='restart'>Game Over! click to restart</div>");
     var leftpressed = false;
     var rightpressed = false;
     var laserWidth = 2;
-    var canvas = document.getElementById("myCanvas");
+    var canvas = $("#myCanvas")[0];
     var ctx = canvas.getContext('2d');
     var raf;
     var laser_y = 530;
     var bullets = [];
     var alienBullets = [];
     var speedFactor = 1;
+    var regHeight = 600;
+    var lives = 3;
 
     var switchDirection = [
     true, true, true, true, true, true, true,
@@ -52,6 +55,10 @@ $(document).ready(function() {
         var barrierThree = new Barriers(930, 450, 200, 75);
 
         var fighter = new FighterMove(600, 550, 60, 40, true);
+        var lifeTwo = new FighterMove(90, 610, 60, 40, true);
+        var lifeThree = new FighterMove(20, 610, 60, 40, true);
+
+// function setup() {}
 
         var aliens = [
             alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven,
@@ -66,9 +73,11 @@ $(document).ready(function() {
             barrierTwo.draw();
             barrierThree.draw();
 
-            if (fighter.alive) {
-                fighter.draw();
-              };
+            fighter.alive ? fighter.draw() : null;
+            lifeTwo.alive ? lifeTwo.draw() : null;
+            lifeThree.alive ? lifeThree.draw() : null;
+
+            bottomBorder();
 
             if (rightpressed && fighter.x < 1200) {
                 fighter.x += 10;
@@ -93,17 +102,13 @@ $(document).ready(function() {
                 }
             });
 
-            for (var i = 0; i < alienAdjustment.length; i++) {
-                if (!alienAdjustment[i + 1]) {
-                    aliens[i].limitRight += 150;
-                }
-            }
-
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
                     if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
+                        console.log(alienAdjustment);
+                        win();
                         speedFactor += .3;
                         bullets.splice(j, 1);
                     } else if (bullets[j].y < 0) {
@@ -113,11 +118,24 @@ $(document).ready(function() {
             };
 
             for (var i = 0; i < alienBullets.length; i++) {
-                if (alienBullets[i].x > fighter.x && alienBullets[i].x < fighter.x + fighter.width
-                && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height) {
+                if (alienBullets[i].x > fighter.x - 20 && alienBullets[i].x < fighter.x + fighter.width - 20
+                && alienBullets[i].y > fighter.y - 20 && alienBullets[i].y < fighter.y + fighter.height - 20) {
                     alienBullets.splice(i, 1);
                     fighter.alive = false;
-                } else if (alienBullets[i].y > 600) {
+                    lives--
+                    lives == 2 ? lifeTwo.alive = false : null;
+                    lives == 1 ? lifeThree.alive = false : null;
+                    if (!lives) {
+                        $('body').append($restartButton);
+                    } else {
+                      // change number of lives left on page
+                      // set timeout to turn fighter.alive to true
+                      console.log(lives);
+                      setTimeout(function() {
+                        fighter.alive = true;
+                      }, 300)
+                    }
+                } else if (alienBullets[i].y > regHeight - 25) {
                     alienBullets.splice(i, 1);
                 }
             };
@@ -185,6 +203,15 @@ $(document).ready(function() {
     } else {
         alert('you need a better browser to play this game')
     }
+
+
+    function bottomBorder() {
+        ctx.beginPath();
+        ctx.moveTo(0, 600);
+        ctx.lineTo(1260, 600);
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
+    };
 
     function Spaceships(x, y, color, src) {
         this.x = x;
@@ -259,6 +286,20 @@ $(document).ready(function() {
         }
     };
 
+    function win() {
+        var win = true;
+        alienAdjustment.forEach(function(instance) {
+            if (instance == true) {
+                win = false;
+            }
+        })
+        if (win) {
+            alert('you win');
+        }
+    };
+
+
+
     $(document).keydown(function(e) {
         if (e.keyCode === 37) {
             leftpressed = true;
@@ -277,5 +318,9 @@ $(document).ready(function() {
         } else if (e.keyCode === 39) {
             rightpressed = false;
         }
+    });
+
+    $($restartButton).click(function(){
+        document.location.reload();
     });
 });
