@@ -54,6 +54,8 @@ $(document).ready(function() {
         var barrierThree = new Barriers(930, 450, 200, 75);
 
         var fighter = new FighterMove(600, 550, 60, 40, true);
+        var lifeTwo = new FighterMove(90, 610, 60, 40, true);
+        var lifeThree = new FighterMove(20, 610, 60, 40, true);
 
         var aliens = [
             alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven,
@@ -68,11 +70,11 @@ $(document).ready(function() {
             barrierTwo.draw();
             barrierThree.draw();
 
-            bottomBorder();
+            fighter.alive ? fighter.draw() : null;
+            lifeTwo.alive ? lifeTwo.draw() : null;
+            lifeThree.alive ? lifeThree.draw() : null;
 
-            if (fighter.alive) {
-                fighter.draw();
-              };
+            bottomBorder();
 
             if (rightpressed && fighter.x < 1200) {
                 fighter.x += 10;
@@ -113,11 +115,13 @@ $(document).ready(function() {
             };
 
             for (var i = 0; i < alienBullets.length; i++) {
-                if (alienBullets[i].x > fighter.x && alienBullets[i].x < fighter.x + fighter.width
-                && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height) {
+                if (alienBullets[i].x > fighter.x - 20 && alienBullets[i].x < fighter.x + fighter.width - 20
+                && alienBullets[i].y > fighter.y - 20 && alienBullets[i].y < fighter.y + fighter.height - 20) {
                     alienBullets.splice(i, 1);
                     fighter.alive = false;
                     lives--
+                    lives == 2 ? lifeTwo.alive = false : null;
+                    lives == 1 ? lifeThree.alive = false : null;
                     if (!lives) {
                         alert('you lose');
                     } else {
@@ -289,6 +293,8 @@ $(document).ready(function() {
             alert('you win');
         }
     };
+
+
 
     $(document).keydown(function(e) {
         if (e.keyCode === 37) {
