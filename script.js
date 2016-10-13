@@ -8,26 +8,28 @@ $(document).ready(function() {
     var laser_y = 530;
     var bullets = [];
     var alienBullets = [];
+    var speedFactor = 1;
+
     var switchDirection = [
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true
     ];
 
-    var collision = [
+    var alienAdjustment = [
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true
     ];
 
     if (canvas.getContext) {
-        var alienOne = new Spaceships(50, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
-        var alienTwo = new Spaceships(200, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
-        var alienThree = new Spaceships(350, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
-        var alienFour = new Spaceships(500, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
-        var alienFive = new Spaceships(650, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
-        var alienSix = new Spaceships(800, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
-        var alienSeven = new Spaceships(950, 75, 'rgb(192, 192, 192)', "assets/space-large.png");
+        var alienOne = new Spaceships(50, 75, 'color', "assets/space-large.png");
+        var alienTwo = new Spaceships(200, 75, 'color', "assets/space-large.png");
+        var alienThree = new Spaceships(350, 75, 'color', "assets/space-large.png");
+        var alienFour = new Spaceships(500, 75, 'color', "assets/space-large.png");
+        var alienFive = new Spaceships(650, 75, 'color', "assets/space-large.png");
+        var alienSix = new Spaceships(800, 75, 'color', "assets/space-large.png");
+        var alienSeven = new Spaceships(950, 75, 'color', "assets/space-large.png");
 
         var alien1 = new Spaceships(100, 175, 'color', "assets/Space-small-invader.png");
         var alien2 = new Spaceships(250, 175, 'color', "assets/Space-small-invader.png");
@@ -45,7 +47,11 @@ $(document).ready(function() {
         var alienVI = new Spaceships(800, 275, 'color', "assets/Space-medium-invader.png");
         var alienVII = new Spaceships(950, 275, 'color', "assets/Space-medium-invader.png");
 
-        var fighter = new FighterMove(600, 550, 50, 30, true);
+        var barrierOne = new Barriers(100, 450, 200, 75);
+        var barrierTwo = new Barriers(500, 450, 200, 75);
+        var barrierThree = new Barriers(900, 450, 200, 75);
+
+        var fighter = new FighterMove(600, 550, 60, 40, true);
 
         var aliens = [
             alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven,
@@ -55,6 +61,11 @@ $(document).ready(function() {
 
         setInterval(function redraw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            barrierOne.draw();
+            barrierTwo.draw();
+            barrierThree.draw();
+
             if (fighter.alive) {
                 fighter.draw();
               };
@@ -69,9 +80,9 @@ $(document).ready(function() {
                 bullet.draw();
             });
 
-            alienBullets.forEach(function(bullet) {
-                bullet.draw();
-            });
+            // alienBullets.forEach(function(bullet) {
+            //     bullet.draw();
+            // });
 
             aliens.forEach(function(alien) {
                 if (alien.alive) {
@@ -80,12 +91,20 @@ $(document).ready(function() {
                       alien.fire();
                     };
                 }
-            })
+            });
+
+            for (var i = 0; i < alienAdjustment.length; i++) {
+                if (!alienAdjustment[i + 1]) {
+                    aliens[i].limitRight += 1;
+                }
+            }
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
                     if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
+                        alienAdjustment[i] = false;
+                        speedFactor += .3;
                         bullets.splice(j, 1);
                     } else if (bullets[j].y < 0) {
                         bullets.splice(j, 1);
@@ -105,18 +124,19 @@ $(document).ready(function() {
 
             var yOne = 150;
             var xOne = 50;
+            var speedOne = speedFactor * 1/2
             for (var i = 0; i < 7; i++) {
-                if (aliens[i].x >= yOne) {
+                if (aliens[i].x >= yOne + aliens[i].limitRight) {
                     switchDirection[i] = false;
                 } else if (aliens[i].x <= xOne) {
                     switchDirection[i] = true;
                 }
                 if (switchDirection[i] == true && aliens[i].alive == true) {
                     aliens[i].draw();
-                    aliens[i].x += 3/5;
+                    aliens[i].x += speedOne;
                 } else if (switchDirection[i] == false && aliens[i].alive == true) {
                     aliens[i].draw();
-                    aliens[i].x -= 3/5;
+                    aliens[i].x -= speedOne;
                 }
                 yOne += 150;
                 xOne += 150;
@@ -124,6 +144,7 @@ $(document).ready(function() {
 
             var y1 = 200;
             var x1 = 100;
+            speed2 = speedFactor * 2/3
             for (var i = 7; i < 14; i++) {
                 if (aliens[i].x >= y1) {
                     switchDirection[i] = false;
@@ -132,10 +153,10 @@ $(document).ready(function() {
                 }
                 if (switchDirection[i] == true && aliens[i].alive == true) {
                     aliens[i].draw();
-                    aliens[i].x += 1 / 2;
+                    aliens[i].x += speed2;
                 } else if (switchDirection[i] == false && aliens[i].alive == true) {
                     aliens[i].draw();
-                    aliens[i].x -= 1 / 2;
+                    aliens[i].x -= speed2;
                 }
                 y1 += 150;
                 x1 += 150;
@@ -143,6 +164,7 @@ $(document).ready(function() {
 
             var yI = 150;
             var xI = 50;
+            speedI = speedFactor * 4/5
             for (var i = 14; i < 21; i++) {
                 if (aliens[i].x >= yI) {
                     switchDirection[i] = false;
@@ -151,10 +173,10 @@ $(document).ready(function() {
                 }
                 if (switchDirection[i] == true && aliens[i].alive == true) {
                     aliens[i].draw();
-                    aliens[i].x += 1 / 3;
+                    aliens[i].x += speedI;
                 } else if (switchDirection[i] == false && aliens[i].alive == true) {
                     aliens[i].draw();
-                    aliens[i].x -= 1 / 3;
+                    aliens[i].x -= speedI;
                 }
                 yI += 150;
                 xI += 150;
@@ -165,12 +187,13 @@ $(document).ready(function() {
     }
 
     function Spaceships(x, y, color, src) {
-        this.x = x
-        this.y = y
-        this.color = color
-        this.width = 50
-        this.height = 50
-        this.alive = true
+        this.x = x;
+        this.y = y;
+        this.limitRight = 0;
+        this.color = color;
+        this.width = 50;
+        this.height = 50;
+        this.alive = true;
         var image = new Image()
         image.src = src
 
@@ -195,7 +218,7 @@ $(document).ready(function() {
         this.height = height;
         this.alive = true;
         var image = new Image();
-        image.src = "http://vignette2.wikia.nocookie.net/spaceinvaders/images/c/cb/Space-invaders.jpg/revision/latest?cb=20130701092122";
+        image.src = "assets/our_hero.png";
         this.draw = function() {
             ctx.beginPath();
             ctx.drawImage(image, this.x, this.y, this.width, this.height);
@@ -219,6 +242,20 @@ $(document).ready(function() {
                 ctx.fillRect(this.x + this.adjust_x, this.y + this.adjust_y, this.width, this.height);
                 ctx.closePath();
                 this.y += this.direction;
+        }
+    };
+
+    function Barriers(x, y, width, height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = "green";
+        this.draw = function() {
+          ctx.beginPath();
+          ctx.fillStyle = this.color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+          ctx.closePath();
         }
     };
 

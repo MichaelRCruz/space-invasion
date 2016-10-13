@@ -2,32 +2,6 @@ body {
   background-color: #232323;
 }
 
-#shooter {
-  height: 20px;
-  width: 40px;
-  background-color: green;
-  position: fixed;
-  bottom: 10px;
-  left: 300px;
-  border-radius: 20px 20px 0 0;
-}
-
-#alien {
-  height: 4px;
-  width: 4px;
-  background-color: red;
-}
-
-#laser {
-  height: 8px;
-  width: 5px;
-  background-color: red;
-  position: fixed;
-  bottom: 30px;
-  left: 318px;
-  border-radius: 5px;
-}
-
 #myCanvas {
   border: 1px solid white;
 }
