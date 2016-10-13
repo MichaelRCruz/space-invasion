@@ -80,9 +80,9 @@ $(document).ready(function() {
                 bullet.draw();
             });
 
-            // alienBullets.forEach(function(bullet) {
-            //     bullet.draw();
-            // });
+            alienBullets.forEach(function(bullet) {
+                bullet.draw();
+            });
 
             aliens.forEach(function(alien) {
                 if (alien.alive) {
