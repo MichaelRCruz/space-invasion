@@ -98,8 +98,8 @@ $(document).ready(function() {
                     if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
-                        limit();
                         console.log(alienAdjustment);
+                        // win();
                         speedFactor += .3;
                         bullets.splice(j, 1);
                     } else if (bullets[j].y < 0) {
@@ -118,21 +118,11 @@ $(document).ready(function() {
                 }
             };
 
-
-            function limit() {
-                for (var i = 0; i < alienAdjustment.length; i++) {
-                    if (!alienAdjustment[i + i]) {
-                        aliens[i].limitRight += 100;
-                        console.log(aliens[i].limitRight);
-                    }
-                }
-            };
-
             var yOne = 260;
             var xOne = 50;
             var speedOne = speedFactor * 1/2
             for (var i = 0; i < 7; i++) {
-                if (aliens[i].x >= yOne + aliens[i].limitRight) {
+                if (aliens[i].x >= yOne) {
                     switchDirection[i] = false;
                 } else if (aliens[i].x <= xOne) {
                     switchDirection[i] = true;
@@ -264,6 +254,14 @@ $(document).ready(function() {
           ctx.closePath();
         }
     };
+
+    // function win() {
+    //     alienAdjustment.forEach(function(instance) {
+    //         if (instance !== true) {
+    //             alert('you win');
+    //         }
+    //     })
+    // };
 
     $(document).keydown(function(e) {
         if (e.keyCode === 37) {
