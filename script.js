@@ -9,6 +9,7 @@ $(document).ready(function() {
     var bullets = [];
     var alienBullets = [];
     var speedFactor = 1;
+    var regHeight = 600;
 
     var switchDirection = [
     true, true, true, true, true, true, true,
@@ -66,6 +67,8 @@ $(document).ready(function() {
             barrierTwo.draw();
             barrierThree.draw();
 
+            bottomBorder();
+
             if (fighter.alive) {
                 fighter.draw();
               };
@@ -80,9 +83,9 @@ $(document).ready(function() {
                 bullet.draw();
             });
 
-            // alienBullets.forEach(function(bullet) {
-            //     bullet.draw();
-            // });
+            alienBullets.forEach(function(bullet) {
+                bullet.draw();
+            });
 
             aliens.forEach(function(alien) {
                 if (alien.alive) {
@@ -99,7 +102,7 @@ $(document).ready(function() {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
                         console.log(alienAdjustment);
-                        // win();
+                        win();
                         speedFactor += .3;
                         bullets.splice(j, 1);
                     } else if (bullets[j].y < 0) {
@@ -113,7 +116,7 @@ $(document).ready(function() {
                 && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height) {
                     alienBullets.splice(i, 1);
                     fighter.alive = false;
-                } else if (alienBullets[i].y > 600) {
+                } else if (alienBullets[i].y > regHeight - 25) {
                     alienBullets.splice(i, 1);
                 }
             };
@@ -181,6 +184,14 @@ $(document).ready(function() {
     } else {
         alert('you need a better browser to play this game')
     }
+
+    function bottomBorder() {
+        ctx.beginPath();
+        ctx.moveTo(0, 600);
+        ctx.lineTo(1260, 600);
+        ctx.strokeStyle = 'white';
+        ctx.stroke();
+    };
 
     function Spaceships(x, y, color, src) {
         this.x = x;
@@ -255,13 +266,17 @@ $(document).ready(function() {
         }
     };
 
-    // function win() {
-    //     alienAdjustment.forEach(function(instance) {
-    //         if (instance !== true) {
-    //             alert('you win');
-    //         }
-    //     })
-    // };
+    function win() {
+        var win = true;
+        alienAdjustment.forEach(function(instance) {
+            if (instance == true) {
+                win = false;
+            }
+        })
+        if (win) {
+            alert('you win');
+        }
+    };
 
     $(document).keydown(function(e) {
         if (e.keyCode === 37) {
