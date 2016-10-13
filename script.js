@@ -19,11 +19,14 @@ $(document).ready(function() {
     true, true, true, true, true, true, true
     ];
 
+
+
     var alienAdjustment = [
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true,
     true, true, true, true, true, true, true
     ];
+
 
     if (canvas.getContext) {
         var alienOne = new Spaceships(50, 75, 'color', "assets/space-large.png");
@@ -317,7 +320,7 @@ $(document).ready(function() {
         }
     });
 
-    $($restartButton).click(function(){
-        alert('it is working');
+    $($restartButton).click(function() {
+        alert('it is working')
     });
 });
