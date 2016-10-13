@@ -47,9 +47,9 @@ $(document).ready(function() {
         var alienVI = new Spaceships(800, 275, 'color', "assets/Space-medium-invader.png");
         var alienVII = new Spaceships(950, 275, 'color', "assets/Space-medium-invader.png");
 
-        var barrierOne = new Barriers(100, 450, 200, 75);
-        var barrierTwo = new Barriers(500, 450, 200, 75);
-        var barrierThree = new Barriers(900, 450, 200, 75);
+        var barrierOne = new Barriers(130, 450, 200, 75);
+        var barrierTwo = new Barriers(530, 450, 200, 75);
+        var barrierThree = new Barriers(930, 450, 200, 75);
 
         var fighter = new FighterMove(600, 550, 60, 40, true);
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < alienAdjustment.length; i++) {
                 if (!alienAdjustment[i + 1]) {
-                    aliens[i].limitRight += 1;
+                    aliens[i].limitRight += 150;
                 }
             }
 
@@ -122,11 +122,11 @@ $(document).ready(function() {
                 }
             };
 
-            var yOne = 150;
+            var yOne = 260;
             var xOne = 50;
             var speedOne = speedFactor * 1/2
             for (var i = 0; i < 7; i++) {
-                if (aliens[i].x >= yOne + aliens[i].limitRight) {
+                if (aliens[i].x >= yOne) {
                     switchDirection[i] = false;
                 } else if (aliens[i].x <= xOne) {
                     switchDirection[i] = true;
@@ -142,8 +142,8 @@ $(document).ready(function() {
                 xOne += 150;
             };
 
-            var y1 = 200;
-            var x1 = 100;
+            var y1 = 250;
+            var x1 = 35;
             speed2 = speedFactor * 2/3
             for (var i = 7; i < 14; i++) {
                 if (aliens[i].x >= y1) {
@@ -162,9 +162,9 @@ $(document).ready(function() {
                 x1 += 150;
             };
 
-            var yI = 150;
+            var yI = 260;
             var xI = 50;
-            speedI = speedFactor * 4/5
+            speedI = speedFactor * 9/10
             for (var i = 14; i < 21; i++) {
                 if (aliens[i].x >= yI) {
                     switchDirection[i] = false;
