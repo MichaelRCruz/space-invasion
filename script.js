@@ -227,7 +227,7 @@ $(document).ready(function() {
             leftpressed = true;
         } else if (e.keyCode === 39) {
             rightpressed = true;
-        } else if (e.keyCode === 38) {
+        } else if (e.keyCode === 38 && fighter.alive == true) {
             var bullet = new LaserBullet(530, fighter.x, 3, 10, "red", 23.5, 0, -5);
             bullets.push(bullet);
             console.log(bullets);
