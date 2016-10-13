@@ -9,10 +9,10 @@ body {
 #restart {
   background-color: red;
   height: 23px;
-  width: 70px;
+  width: 275px;
   position: absolute;
-  bottom: 0;
-  left: 600px;
+  top: 625px;
+  left: 500px;
   font-size: 25px;
   z-index: 2;
 }
