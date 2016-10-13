@@ -10,6 +10,7 @@ $(document).ready(function() {
     var alienBullets = [];
     var speedFactor = 1;
     var regHeight = 600;
+    var lives = 3;
 
     var switchDirection = [
     true, true, true, true, true, true, true,
@@ -116,6 +117,17 @@ $(document).ready(function() {
                 && alienBullets[i].y > fighter.y && alienBullets[i].y < fighter.y + fighter.height) {
                     alienBullets.splice(i, 1);
                     fighter.alive = false;
+                    lives--
+                    if (!lives) {
+                        alert('you lose');
+                    } else {
+                      // change number of lives left on page
+                      // set timeout to turn fighter.alive to true
+                      console.log(lives);
+                      setTimeout(function() {
+                        fighter.alive = true;
+                      }, 300)
+                    }
                 } else if (alienBullets[i].y > regHeight - 25) {
                     alienBullets.splice(i, 1);
                 }
