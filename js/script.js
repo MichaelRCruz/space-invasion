@@ -1,4 +1,5 @@
-var $restartButton = $( "<div id='restart'>Game Over! click to restart</div>");
+var $restartButton = $("<div id='gameOver'>Game Over<div id='restart'>click to restart</div></div>");
+var $winAlert = $("<div id='gameOver'>You Win!<div id='restart'>click to restart</div></div>");
 var leftpressed = false;
 var rightpressed = false;
 var laserWidth = 2;
@@ -149,9 +150,6 @@ $(document).ready(function() {
                         clearInterval(window.begin);
                         $('body').append($restartButton);
                     } else {
-                      // change number of lives left on page
-                      // set timeout to turn fighter.alive to true
-                      console.log(lives);
                       setTimeout(function() {
                         fighter.alive = true;
                       }, 1500)
@@ -313,7 +311,8 @@ $(document).ready(function() {
             }
         })
         if (win) {
-            alert('you win');
+            clearInterval(window.begin);
+            $('body').append($winAlert);
         }
     };
 
@@ -338,6 +337,9 @@ $(document).ready(function() {
     });
 
     $($restartButton).click(function(){
+        document.location.reload();
+    });
+    $($winAlert).click(function(){
         document.location.reload();
     });
 });

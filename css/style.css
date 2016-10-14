@@ -6,13 +6,28 @@ body {
   /*border-bottom: 1px solid white;*/
 }
 
-#restart {
-  background-color: red;
-  height: 23px;
-  width: 275px;
+#gameOver {
+  color: red;
+  text-align: center;
+  height: 60px;
+  width: 450px;
   position: absolute;
-  top: 625px;
-  left: 500px;
-  font-size: 25px;
+  top: 220px;
+  left: 430px;
+  font-size: 50px;
   z-index: 2;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#restart {
+  color: red;
+  text-align: center;
+  height: 60px;
+  width: 450px;
+  position: absolute;
+  top: 60px;
+  left: 0px;
+  font-size: 20px;
+  z-index: 2;
+  font-family: 'Press Start 2P', cursive;
 }
