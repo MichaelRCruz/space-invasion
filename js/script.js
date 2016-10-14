@@ -1,54 +1,51 @@
+var $restartButton = $( "<div id='restart'>Game Over! click to restart</div>");
+var leftpressed = false;
+var rightpressed = false;
+var laserWidth = 2;
+var canvas = $("#myCanvas")[0];
+var ctx = canvas.getContext('2d');
+var raf;
+var laser_y = 530;
+var bullets = [];
+var alienBullets = [];
+var aliens = [];
+var speedFactor = 2;
+var regHeight = 600;
+var lives = 3;
+
+var switchDirection = [
+true, true, true, true, true, true, true,
+true, true, true, true, true, true, true,
+true, true, true, true, true, true, true
+];
+
+var alienAdjustment = [
+true, true, true, true, true, true, true,
+true, true, true, true, true, true, true,
+true, true, true, true, true, true, true
+];
+
 $(document).ready(function() {
-    var $restartButton = $( "<div id='restart'>Game Over! click to restart</div>");
-    var leftpressed = false;
-    var rightpressed = false;
-    var laserWidth = 2;
-    var canvas = $("#myCanvas")[0];
-    var ctx = canvas.getContext('2d');
-    var raf;
-    var laser_y = 530;
-    var bullets = [];
-    var alienBullets = [];
-    var speedFactor = 1;
-    var regHeight = 600;
-    var lives = 3;
-
-    var switchDirection = [
-    true, true, true, true, true, true, true,
-    true, true, true, true, true, true, true,
-    true, true, true, true, true, true, true
-    ];
-
-    var alienAdjustment = [
-    true, true, true, true, true, true, true,
-    true, true, true, true, true, true, true,
-    true, true, true, true, true, true, true
-    ];
 
     if (canvas.getContext) {
-        var alienOne = new Spaceships(50, 75, 'color', "assets/space-large.png");
-        var alienTwo = new Spaceships(200, 75, 'color', "assets/space-large.png");
-        var alienThree = new Spaceships(350, 75, 'color', "assets/space-large.png");
-        var alienFour = new Spaceships(500, 75, 'color', "assets/space-large.png");
-        var alienFive = new Spaceships(650, 75, 'color', "assets/space-large.png");
-        var alienSix = new Spaceships(800, 75, 'color', "assets/space-large.png");
-        var alienSeven = new Spaceships(950, 75, 'color', "assets/space-large.png");
 
-        var alien1 = new Spaceships(100, 175, 'color', "assets/Space-small-invader.png");
-        var alien2 = new Spaceships(250, 175, 'color', "assets/Space-small-invader.png");
-        var alien3 = new Spaceships(400, 175, 'color', "assets/Space-small-invader.png");
-        var alien4 = new Spaceships(550, 175, 'color', "assets/Space-small-invader.png");
-        var alien5 = new Spaceships(700, 175, 'color', "assets/Space-small-invader.png");
-        var alien6 = new Spaceships(850, 175, 'color', "assets/Space-small-invader.png");
-        var alien7 = new Spaceships(1000, 175, 'color', "assets/Space-small-invader.png");
+        var j = 50;
+        for (var i = 0; i < 7; i++) {
+            aliens.push(new Spaceships(j, 75, "assets/space-large.png"));
+            j += 150;
+        };
 
-        var alienI = new Spaceships(50, 275, 'color', "assets/Space-medium-invader.png");
-        var alienII = new Spaceships(200, 275, 'color', "assets/Space-medium-invader.png");
-        var alienIII = new Spaceships(350, 275, 'color', "assets/Space-medium-invader.png");
-        var alienIV = new Spaceships(500, 275, 'color', "assets/Space-medium-invader.png");
-        var alienV = new Spaceships(650, 275, 'color', "assets/Space-medium-invader.png");
-        var alienVI = new Spaceships(800, 275, 'color', "assets/Space-medium-invader.png");
-        var alienVII = new Spaceships(950, 275, 'color', "assets/Space-medium-invader.png");
+        var k = 100
+        for (var i = 7; i < 14; i++) {
+            aliens.push(new Spaceships(k, 175, "assets/Space-small-invader.png"))
+            k += 150
+        };
+
+        var l = 50
+        for (var i = 14; i < 21; i++) {
+            aliens.push(new Spaceships(l, 275, "assets/Space-medium-invader.png"))
+            l += 150;
+        };
 
         var barrierOne = new Barriers(130, 450, 200, 75);
         var barrierTwo = new Barriers(530, 450, 200, 75);
@@ -58,15 +55,7 @@ $(document).ready(function() {
         var lifeTwo = new FighterMove(90, 610, 60, 40, true);
         var lifeThree = new FighterMove(20, 610, 60, 40, true);
 
-// function setup() {}
-
-        var aliens = [
-            alienOne, alienTwo, alienThree, alienFour, alienFive, alienSix, alienSeven,
-            alien1, alien2, alien3, alien4, alien5, alien6, alien7,
-            alienI, alienII, alienIII, alienIV, alienV, alienVI, alienVII
-        ];
-
-        setInterval(function redraw() {
+        window.begin = setInterval(function redraw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             barrierOne.draw();
@@ -126,6 +115,7 @@ $(document).ready(function() {
                     lives == 2 ? lifeTwo.alive = false : null;
                     lives == 1 ? lifeThree.alive = false : null;
                     if (!lives) {
+                        clearInterval(window.begin);
                         $('body').append($restartButton);
                     } else {
                       // change number of lives left on page
@@ -133,7 +123,7 @@ $(document).ready(function() {
                       console.log(lives);
                       setTimeout(function() {
                         fighter.alive = true;
-                      }, 300)
+                      }, 1500)
                     }
                 } else if (alienBullets[i].y > regHeight - 25) {
                     alienBullets.splice(i, 1);
@@ -204,7 +194,6 @@ $(document).ready(function() {
         alert('you need a better browser to play this game')
     }
 
-
     function bottomBorder() {
         ctx.beginPath();
         ctx.moveTo(0, 600);
@@ -213,11 +202,10 @@ $(document).ready(function() {
         ctx.stroke();
     };
 
-    function Spaceships(x, y, color, src) {
+    function Spaceships(x, y, src) {
         this.x = x;
         this.y = y;
         this.limitRight = 0;
-        this.color = color;
         this.width = 50;
         this.height = 50;
         this.alive = true;
@@ -228,7 +216,6 @@ $(document).ready(function() {
             ctx.beginPath();
             ctx.drawImage(image, this.x, this.y, this.width, this.height);
             ctx.closePath();
-            ctx.fillStyle = this.color;
             ctx.fill();
         }
 
@@ -297,8 +284,6 @@ $(document).ready(function() {
             alert('you win');
         }
     };
-
-
 
     $(document).keydown(function(e) {
         if (e.keyCode === 37) {
