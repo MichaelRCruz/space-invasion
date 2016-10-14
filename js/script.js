@@ -106,7 +106,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if (aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
+                    if (aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x && bullets[j].x < aliens[i].x + aliens[i].width) {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
                         console.log(alienAdjustment);
@@ -121,8 +121,17 @@ $(document).ready(function() {
 
             for (var i = 0; i < barriers.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if (barriers[i].alive && bullets[j].y > barriers[i].y && bullets[j].y < barriers[i].y + barriers[i].height && bullets[j].x > barriers[i].x && bullets[j].x < barriers[i].x + barriers[i].width) {
+                    if (barriers[i].alive && bullets[j].y > barriers[i].y + 20 && bullets[j].y < barriers[i].y + barriers[i].height + 20 && bullets[j].x > barriers[i].x - 25 && bullets[j].x < barriers[i].x + barriers[i].width - 25) {
                           bullets.splice(j, 1);
+                          barriers[i].alive = false;
+                    }
+                }
+            };
+
+            for (var i = 0; i < barriers.length; i++) {
+                for (var j = alienBullets.length - 1; j >= 0; j--) {
+                    if (barriers[i].alive && alienBullets[j].y > barriers[i].y && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x && alienBullets[j].x < barriers[i].x + barriers[i].width + 10) {
+                          alienBullets.splice(j, 1);
                           barriers[i].alive = false;
                     }
                 }
