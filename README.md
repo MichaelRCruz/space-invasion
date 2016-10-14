@@ -41,11 +41,18 @@ Clone the repository at https://github.com/MichaelRCruz/space_invasion and then 
 
 The game has been optimized for [Google Chrome](https://www.google.com/chrome/) only.
 
-## Unsolved Problems
+## Next Steps
 
 
 The game should keep score with a two-player option.
 
 The aliens should become more aggressive as the player moves through levels (worlds).
+
+Develop a more sophisticated barrier deterioration feature.
+
+Focus on the three major factors that support game-play quality:
+1. alien speed increasing at a linear rate
+2. alien bullets increasing at an exponential rate
+3. balancing barrier deterioration with the two aforementioned factors
 
 ## [Give it a try!](https://michaelrcruz.github.io/space_invasion/)
