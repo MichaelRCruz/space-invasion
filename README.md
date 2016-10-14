@@ -43,9 +43,6 @@ The game has been optimized for [Google Chrome](https://www.google.com/chrome/) 
 
 ## Unsolved Problems
 
-Collision detection with the green barriers (blocks).
-
-After collision detection with the blocks, they should appear to virtually deteriorate as they collide with the virtual bullets from both the aliens and the player's fighter.
 
 The game should keep score with a two-player option.
 
