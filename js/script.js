@@ -106,7 +106,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
+                    if (aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
                         console.log(alienAdjustment);
@@ -115,6 +115,15 @@ $(document).ready(function() {
                         bullets.splice(j, 1);
                     } else if (bullets[j].y < 0) {
                         bullets.splice(j, 1);
+                    }
+                }
+            };
+
+            for (var i = 0; i < barriers.length; i++) {
+                for (var j = bullets.length - 1; j >= 0; j--) {
+                    if (barriers[i].alive && bullets[j].y > barriers[i].y && bullets[j].y < barriers[i].y + barriers[i].height && bullets[j].x > barriers[i].x && bullets[j].x < barriers[i].x + barriers[i].width) {
+                          bullets.splice(j, 1);
+                          barriers[i].alive = false;
                     }
                 }
             };
