@@ -121,7 +121,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < barriers.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if (barriers[i].alive && bullets[j].y > barriers[i].y + 20 && bullets[j].y < barriers[i].y + barriers[i].height + 20 && bullets[j].x > barriers[i].x - 25 && bullets[j].x < barriers[i].x + barriers[i].width - 25) {
+                    if (barriers[i].alive && bullets[j].y > barriers[i].y && bullets[j].y < barriers[i].y + barriers[i].height && bullets[j].x > barriers[i].x - 25 && bullets[j].x < barriers[i].x + barriers[i].width - 25) {
                           bullets.splice(j, 1);
                           barriers[i].alive = false;
                     }
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < barriers.length; i++) {
                 for (var j = alienBullets.length - 1; j >= 0; j--) {
-                    if (barriers[i].alive && alienBullets[j].y > barriers[i].y - 20 && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x && alienBullets[j].x < barriers[i].x + barriers[i].width + 10) {
+                    if (barriers[i].alive && alienBullets[j].y > barriers[i].y - 20 && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x - 25 && alienBullets[j].x < barriers[i].x + barriers[i].width - 25) {
                           alienBullets.splice(j, 1);
                           barriers[i].alive = false;
                     }
