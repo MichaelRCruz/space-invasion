@@ -6,12 +6,13 @@ var canvas = $("#myCanvas")[0];
 var ctx = canvas.getContext('2d');
 var raf;
 var laser_y = 530;
-var bullets = [];
-var alienBullets = [];
-var aliens = [];
 var speedFactor = 2;
 var regHeight = 600;
 var lives = 3;
+var bullets = [];
+var alienBullets = [];
+var aliens = [];
+var barriers = [];
 
 var switchDirection = [
 true, true, true, true, true, true, true,
@@ -47,9 +48,35 @@ $(document).ready(function() {
             l += 150;
         };
 
-        var barrierOne = new Barriers(130, 450, 200, 75);
-        var barrierTwo = new Barriers(530, 450, 200, 75);
-        var barrierThree = new Barriers(930, 450, 200, 75);
+        var barrier_1a = new Barriers(130, 440, 67, 25, true);
+        var barrier_2a = new Barriers(197, 440, 67, 25, true);
+        var barrier_3a = new Barriers(264, 440, 67, 25, true);
+        var barrier_4a = new Barriers(130, 465, 67, 25, true);
+        var barrier_5a = new Barriers(197, 465, 67, 25, true);
+        var barrier_6a = new Barriers(264, 465, 67, 25, true);
+        var barrier_7a = new Barriers(130, 490, 67, 25, true);
+        var barrier_8a = new Barriers(197, 490, 67, 25, true);
+        var barrier_9a = new Barriers(264, 490, 67, 25, true);
+
+        var barrier_1b = new Barriers(530, 440, 67, 25, true);
+        var barrier_2b = new Barriers(597, 440, 67, 25, true);
+        var barrier_3b = new Barriers(664, 440, 67, 25, true);
+        var barrier_4b = new Barriers(530, 465, 67, 25, true);
+        var barrier_5b = new Barriers(597, 465, 67, 25, true);
+        var barrier_6b = new Barriers(664, 465, 67, 25, true);
+        var barrier_7b = new Barriers(530, 490, 67, 25, true);
+        var barrier_8b = new Barriers(597, 490, 67, 25, true);
+        var barrier_9b = new Barriers(664, 490, 67, 25, true);
+
+        var barrier_1c = new Barriers(930, 440, 67, 25, true);
+        var barrier_2c = new Barriers(997, 440, 67, 25, true);
+        var barrier_3c = new Barriers(1064, 440, 67, 25, true);
+        var barrier_4c = new Barriers(930, 465, 67, 25, true);
+        var barrier_5c = new Barriers(997, 465, 67, 25, true);
+        var barrier_6c = new Barriers(1064, 465, 67, 25, true);
+        var barrier_7c = new Barriers(930, 490, 67, 25, true);
+        var barrier_8c = new Barriers(997, 490, 67, 25, true);
+        var barrier_9c = new Barriers(1064, 490, 67, 25, true);
 
         var fighter = new FighterMove(600, 550, 60, 40, true);
         var lifeTwo = new FighterMove(90, 610, 60, 40, true);
@@ -58,9 +85,35 @@ $(document).ready(function() {
         window.begin = setInterval(function redraw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            barrierOne.draw();
-            barrierTwo.draw();
-            barrierThree.draw();
+            barrier_1a.draw();
+            barrier_2a.draw();
+            barrier_3a.draw();
+            barrier_4a.draw();
+            barrier_5a.draw();
+            barrier_6a.draw();
+            barrier_7a.draw();
+            barrier_8a.draw();
+            barrier_9a.draw();
+
+            barrier_1b.draw();
+            barrier_2b.draw();
+            barrier_3b.draw();
+            barrier_4b.draw();
+            barrier_5b.draw();
+            barrier_6b.draw();
+            barrier_7b.draw();
+            barrier_8b.draw();
+            barrier_9b.draw();
+
+            barrier_1c.draw();
+            barrier_2c.draw();
+            barrier_3c.draw();
+            barrier_4c.draw();
+            barrier_5c.draw();
+            barrier_6c.draw();
+            barrier_7c.draw();
+            barrier_8c.draw();
+            barrier_9c.draw();
 
             fighter.alive ? fighter.draw() : null;
             lifeTwo.alive ? lifeTwo.draw() : null;
@@ -259,12 +312,13 @@ $(document).ready(function() {
         }
     };
 
-    function Barriers(x, y, width, height) {
+    function Barriers(x, y, truth) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = 67;
+        this.height = 25;
         this.color = "green";
+        this.truth = truth;
         this.draw = function() {
           ctx.beginPath();
           ctx.fillStyle = this.color;
