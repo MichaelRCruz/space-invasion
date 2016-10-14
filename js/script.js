@@ -106,7 +106,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
-                    if (aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x && bullets[j].x < aliens[i].x + aliens[i].width) {
+                    if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
                         console.log(alienAdjustment);
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < barriers.length; i++) {
                 for (var j = alienBullets.length - 1; j >= 0; j--) {
-                    if (barriers[i].alive && alienBullets[j].y > barriers[i].y && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x && alienBullets[j].x < barriers[i].x + barriers[i].width + 10) {
+                    if (barriers[i].alive && alienBullets[j].y > barriers[i].y - 20 && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x && alienBullets[j].x < barriers[i].x + barriers[i].width + 10) {
                           alienBullets.splice(j, 1);
                           barriers[i].alive = false;
                     }
