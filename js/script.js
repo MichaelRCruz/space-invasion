@@ -30,25 +30,25 @@ true, true, true, true, true, true, true
 $(document).ready(function() {
 
     if (canvas.getContext) {
-
+        // Creates the top-row alien objects from Invaders() / pushes to ailens[]
         var j = 50;
         for (var i = 0; i < 7; i++) {
-            aliens.push(new Spaceships(j, 75, "assets/space-large.png"));
+            aliens.push(new Invaders(j, 75, "assets/space-large.png"));
             j += 150;
         };
-
+        // Creates the middle-row alien objects from Invaders()-pushes to ailens[]
         var k = 100
         for (var i = 7; i < 14; i++) {
-            aliens.push(new Spaceships(k, 175, "assets/Space-small-invader.png"))
+            aliens.push(new Invaders(k, 175, "assets/Space-small-invader.png"))
             k += 150
         };
-
+        // Creates the bottom-row alien objects from Invaders()-pushes to ailens[]
         var l = 50
         for (var i = 14; i < 21; i++) {
-            aliens.push(new Spaceships(l, 275, "assets/Space-medium-invader.png"))
+            aliens.push(new Invaders(l, 275, "assets/Space-medium-invader.png"))
             l += 150;
         };
-
+        // creates the 27 block objects from Barriers()-pushes to barriers[]
         var m = 130;
         for (var i = 0; i < 3; i++) {
             var n = 440;
@@ -104,13 +104,12 @@ $(document).ready(function() {
                     };
                 }
             });
-
+            // defines the collison events with the fighter-bullets towards the aliens
             for (var i = 0; i < aliens.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
                     if ( aliens[i].alive && bullets[j].y > aliens[i].y && bullets[j].y < aliens[i].y + aliens[i].height - 20 && bullets[j].x > aliens[i].x - 20 && bullets[j].x < aliens[i].x + aliens[i].width - 25) {
                         aliens[i].alive = false;
                         alienAdjustment[i] = false;
-                        console.log(alienAdjustment);
                         win();
                         speedFactor += .3;
                         bullets.splice(j, 1);
@@ -119,7 +118,7 @@ $(document).ready(function() {
                     }
                 }
             };
-
+            // defines the collision events with the fighter-bullets and the barriers
             for (var i = 0; i < barriers.length; i++) {
                 for (var j = bullets.length - 1; j >= 0; j--) {
                     if (barriers[i].alive && bullets[j].y > barriers[i].y && bullets[j].y < barriers[i].y + barriers[i].height && bullets[j].x > barriers[i].x - 25 && bullets[j].x < barriers[i].x + barriers[i].width - 25) {
@@ -128,7 +127,7 @@ $(document).ready(function() {
                     }
                 }
             };
-
+            // defines the collision events with the alien-bullets and the barriers
             for (var i = 0; i < barriers.length; i++) {
                 for (var j = alienBullets.length - 1; j >= 0; j--) {
                     if (barriers[i].alive && alienBullets[j].y > barriers[i].y - 20 && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x - 25 && alienBullets[j].x < barriers[i].x + barriers[i].width - 25) {
@@ -137,7 +136,7 @@ $(document).ready(function() {
                     }
                 }
             };
-
+            // defines the collision events with the alien-bullets towards the fighter
             for (var i = 0; i < alienBullets.length; i++) {
                 if (alienBullets[i].x > fighter.x - 20 && alienBullets[i].x < fighter.x + fighter.width - 20
                 && alienBullets[i].y > fighter.y - 20 && alienBullets[i].y < fighter.y + fighter.height - 20) {
@@ -158,7 +157,7 @@ $(document).ready(function() {
                     alienBullets.splice(i, 1);
                 }
             };
-
+            // top-row alien animation involving speed and direction
             var yOne = 260;
             var xOne = 50;
             var speedOne = speedFactor * 1/2
@@ -178,7 +177,7 @@ $(document).ready(function() {
                 yOne += 150;
                 xOne += 150;
             };
-
+            // middle-row alien animation involving speed and direction
             var y1 = 250;
             var x1 = 35;
             speed2 = speedFactor * 2/3
@@ -198,7 +197,7 @@ $(document).ready(function() {
                 y1 += 150;
                 x1 += 150;
             };
-
+            // bottom-row alien animation involving speed and direction
             var yI = 260;
             var xI = 50;
             speedI = speedFactor * 9/10
@@ -231,7 +230,7 @@ $(document).ready(function() {
         ctx.stroke();
     };
 
-    function Spaceships(x, y, src) {
+    function Invaders(x, y, src) {
         this.x = x;
         this.y = y;
         this.limitRight = 0;
@@ -240,17 +239,15 @@ $(document).ready(function() {
         this.alive = true;
         var image = new Image()
         image.src = src
-
         this.draw = function() {
-            ctx.beginPath();
-            ctx.drawImage(image, this.x, this.y, this.width, this.height);
-            ctx.closePath();
-            ctx.fill();
+                ctx.beginPath();
+                ctx.drawImage(image, this.x, this.y, this.width, this.height);
+                ctx.closePath();
+                ctx.fill();
         }
-
         this.fire = function() {
-            var bullet = new LaserBullet(this.y, this.x, 5, 10, "green", 20, 20, 5);
-            alienBullets.push(bullet);
+                var bullet = new LaserBullet(this.y, this.x, 5, 10, "green", 20, 20, 5);
+                alienBullets.push(bullet);
         }
     };
 
@@ -263,11 +260,11 @@ $(document).ready(function() {
         var image = new Image();
         image.src = "assets/our_hero.png";
         this.draw = function() {
-            ctx.beginPath();
-            ctx.drawImage(image, this.x, this.y, this.width, this.height);
-            ctx.closePath();
-            ctx.fill();
-          }
+                ctx.beginPath();
+                ctx.drawImage(image, this.x, this.y, this.width, this.height);
+                ctx.closePath();
+                ctx.fill();
+        }
     };
 
     function LaserBullet(current_y, current_x, width, height, color, adjust_x, adjust_y, direction) {
@@ -296,10 +293,10 @@ $(document).ready(function() {
         this.color = "green";
         this.alive = true;
         this.draw = function() {
-          ctx.beginPath();
-          ctx.fillStyle = this.color;
-          ctx.fillRect(this.x, this.y, this.width, this.height);
-          ctx.closePath();
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.width, this.height);
+                ctx.closePath();
         }
     };
 
@@ -324,7 +321,6 @@ $(document).ready(function() {
         } else if (e.keyCode === 38 && fighter.alive == true) {
             var bullet = new LaserBullet(530, fighter.x, 3, 10, "red", 23.5, 0, -5);
             bullets.push(bullet);
-            console.log(bullets);
         }
     });
 
