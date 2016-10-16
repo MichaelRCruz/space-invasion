@@ -122,10 +122,12 @@ function LaserBullet(current_y, current_x, width, height, color, adjust_x, adjus
     this.adjust_x = adjust_x;
     this.adjust_y = adjust_y;
     this.direction = direction;
+    this.ctr = 0;
     this.draw = function() {
         ctx.beginPath();
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x + this.adjust_x, this.y + this.adjust_y, this.width, this.height);
+        var mod = Math.sin(this.ctr++ * 0.05) * 3 + 1;
+        ctx.fillRect(this.x + this.adjust_x, this.y + this.adjust_y, this.width + mod, this.height + mod);
         ctx.closePath();
         this.y += this.direction;
     }
@@ -137,10 +139,12 @@ function Barriers(x, y) {
     this.width = 67;
     this.height = 25;
     this.color = "green";
+    this.health = 3;
+    this.colorMap = {3: 'rgba(0, 255, 0, 0.75)', 2: 'rgba(0, 255, 0, 0.5)', 1: 'rgba(0, 255, 0, 0.25)'}
     this.alive = true;
     this.draw = function() {
         ctx.beginPath();
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = this.colorMap[this.health];
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.closePath();
     }
@@ -227,7 +231,7 @@ function redraw() {
         for (var j = bullets.length - 1; j >= 0; j--) {
             if (barriers[i].alive && bullets[j].y > barriers[i].y && bullets[j].y < barriers[i].y + barriers[i].height && bullets[j].x > barriers[i].x - 25 && bullets[j].x < barriers[i].x + barriers[i].width - 25) {
                   bullets.splice(j, 1);
-                  barriers[i].alive = false;
+                  if (--barriers[i].health <= 0) barriers[i].alive = false;
             }
         }
     };
@@ -236,7 +240,7 @@ function redraw() {
         for (var j = alienBullets.length - 1; j >= 0; j--) {
             if (barriers[i].alive && alienBullets[j].y > barriers[i].y - 20 && alienBullets[j].y < barriers[i].y + barriers[i].height + 10 && alienBullets[j].x > barriers[i].x - 25 && alienBullets[j].x < barriers[i].x + barriers[i].width - 25) {
                   alienBullets.splice(j, 1);
-                  barriers[i].alive = false;
+                  if (--barriers[i].health <= 0) barriers[i].alive = false;
             }
         }
     };
@@ -341,7 +345,9 @@ $(document).ready(function() {
         } else if (e.keyCode === 39) {
             rightpressed = true;
         } else if (e.keyCode === 38 && fighter.alive == true) {
-            var bullet = new LaserBullet(530, fighter.x, 3, 10, "red", 23.5, 0, -5);
+            var bullet = new LaserBullet(530, fighter.x-5, 3, 10, "red", 23.5, 0, -5);
+            bullets.push(bullet);
+            var bullet = new LaserBullet(530, fighter.x+5, 3, 10, "red", 23.5, 0, -5);
             bullets.push(bullet);
         }
     });
