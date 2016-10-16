@@ -1,5 +1,5 @@
-var $restartButton = $("<div id='gameOver'>Game Over<div id='restart'>click to restart</div></div>");
-var $winAlert = $("<div id='gameOver'>You Win!<div id='restart'>click to restart</div></div>");
+var $restartButton = "<div id='gameOver'>Game Over<div id='restart'>click to restart</div></div>";
+var $winAlert = "<div id='gameOver'>You Win!<div id='restart'>click to restart</div></div>";
 var leftpressed = false;
 var rightpressed = false;
 var laserWidth = 2;
@@ -56,13 +56,13 @@ function setupGame() {
   };
   // creates the 27 block objects from Barriers()-pushes to barriers[]
   var m = 130;
-  for (var i = 0; i < 3; i++) {
+  for (var i = 0; i < 6; i++) {
       var n = 440;
       for (var j = 0; j < 3; j++) {
           m = 130 + i * 400
-          for (var k = 0; k < 3; k++) {
+          for (var k = 0; k < 6; k++) {
               barriers.push(new Barriers(m, n));
-              m += 67;
+              m += 33;
           }
           n += 25;
       }
@@ -163,8 +163,9 @@ function win() {
     })
     if (win) {
         clearInterval(window.begin);
-        $('body').append($winAlert);
-    }
+        $('body').append($($winAlert));
+        $('#gameOver').click(function(){ setupGame(); });
+      }
 };
 
 function redraw() {
@@ -250,7 +251,8 @@ function redraw() {
             lives == 1 ? lifeThree.alive = false : null;
             if (!lives) {
                 clearInterval(window.begin);
-                $('body').append($restartButton);
+                $('body').append($($restartButton));
+                $('#gameOver').click(function(){ setupGame(); });
             } else {
               setTimeout(function() {
                 fighter.alive = true;
@@ -350,12 +352,5 @@ $(document).ready(function() {
         } else if (e.keyCode === 39) {
             rightpressed = false;
         }
-    });
-
-    $($restartButton).click(function(){
-        setupGame();
-    });
-    $($winAlert).click(function(){
-        setupGame();
     });
 });
