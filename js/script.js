@@ -16,7 +16,7 @@ var fighter, figherTwo, fighterThree;
 
 function setupGame() {
   $('#gameOver').remove();
-  animation('animated fadeInDown');
+  canvasAnimation('animated fadeInDown');
 
   speedFactor = 2;
   lives = 3;
@@ -173,7 +173,7 @@ function win() {
       }
 };
 
-function animation(animationName) {
+function canvasAnimation(animationName) {
     $(function() {
         // var animationName = 'animated shake';
         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
@@ -242,6 +242,7 @@ function redraw() {
         for (var j = bullets.length - 1; j >= 0; j--) {
             if (barriers[i].alive && bullets[j].y > barriers[i].y && bullets[j].y < barriers[i].y + barriers[i].height && bullets[j].x > barriers[i].x - 25 && bullets[j].x < barriers[i].x + barriers[i].width - 25) {
                   bullets.splice(j, 1);
+                  canvasAnimation('animated shake');
                   if (--barriers[i].health <= 0) barriers[i].alive = false;
             }
         }
@@ -262,7 +263,7 @@ function redraw() {
             alienBullets.splice(i, 1);
             fighter.alive = false;
             // animates the canvas after the fighter is shot
-            animation('animated shake');
+            canvasAnimation('animated rubberBand');
             lives--
             lives == 2 ? lifeTwo.alive = false : null;
             lives == 1 ? lifeThree.alive = false : null;
