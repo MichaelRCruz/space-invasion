@@ -4,6 +4,9 @@ body {
 
 #myCanvas {
   /*border-bottom: 1px solid white;*/
+  /*-webkit-animation-duration: 1s;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-iteration-count: 1;*/
 }
 
 #gameOver {
