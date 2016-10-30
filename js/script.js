@@ -16,6 +16,7 @@ var fighter, figherTwo, fighterThree;
 
 function setupGame() {
   $('#gameOver').remove();
+  $('#touch-controls').show();
   canvasAnimation('animated fadeInDown');
 
   speedFactor = 2;
@@ -169,6 +170,7 @@ function win() {
     if (win) {
         clearInterval(window.begin);
         $('body').append($($winAlert));
+        $('#touch-controls').hide();
         $('#gameOver').click(function(){ setupGame(); });
       }
 };
@@ -342,6 +344,15 @@ function redraw() {
     };
 }
 
+function fireBullet() {
+  if (fighter.alive == true) {
+    var bullet = new LaserBullet(530, fighter.x-5, 3, 10, "red", 23.5, 0, -5);
+    bullets.push(bullet);
+    var bullet = new LaserBullet(530, fighter.x+5, 3, 10, "red", 23.5, 0, -5);
+    bullets.push(bullet);
+  }
+}
+
 $(document).ready(function() {
 
     if (!canvas.getContext) {
@@ -373,4 +384,50 @@ $(document).ready(function() {
             rightpressed = false;
         }
     });
+
+    /***************************
+     * Register touch controls */
+    var bulletInterval; // recurs while holding "fire"
+
+    $('#touch-controls').on('touchstart', function(e) {
+      e.preventDefault();
+
+      var action = e.target.dataset.action;
+      switch (action) {
+        case 'move-left':
+          leftpressed = true;
+          rightpressed = false;
+          break;
+        case 'move-right':
+          leftpressed = false;
+          rightpressed = true;
+          break;
+        case 'fire':
+          if (!bulletInterval) {
+            fireBullet(); // now
+            bulletInterval = setInterval(fireBullet, 200); // and later
+          }
+          break;
+      }
+    });
+
+    $('#touch-controls').on('touchend', function(e) {
+      var action = e.target.dataset.action;
+      switch (action) {
+        case 'move-left':
+          leftpressed = false;
+          break;
+        case 'move-right':
+          rightpressed = false;
+          break;
+        case 'fire':
+          if (bulletInterval) {
+            clearInterval(bulletInterval);
+            bulletInterval = null;
+          }
+          break;
+      }
+    });
+
+
 });
