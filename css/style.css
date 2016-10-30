@@ -2,6 +2,29 @@ body {
   background-color: #232323;
 }
 
+#game {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  width: 1260px;
+  height: 640px;
+}
+
+/* Overlay over the game, but be invisible */
+#touch-controls {
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+}
+#touch-controls div {
+  flex: 1;
+}
+
 #myCanvas {
   /*border-bottom: 1px solid white;*/
   /*-webkit-animation-duration: 1s;
